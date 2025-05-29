@@ -110,33 +110,129 @@
                 linear-gradient(90deg, rgba(5, 217, 232, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
         }
+
+    /* --- Cyberpunk Animation Additions --- */
+
+    /* Text Glitch/Flicker Effect */
+    @keyframes text-glitch {
+        2%, 64% {
+            transform: translate(2px, 0) skew(0deg);
+            opacity: 0.8;
+        }
+        4%, 60% {
+            transform: translate(-2px, 0) skew(0deg);
+        }
+        62% {
+            transform: translate(0, 0) skew(5deg);
+        }
+    }
+    .animate-text-glitch {
+        animation: text-glitch 1s linear infinite;
+        display: inline-block; /* Important for transform to work well */
+    }
+
+    @keyframes text-flicker-fast {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .animate-text-flicker-fast {
+        animation: text-flicker-fast 0.2s linear infinite alternate;
+    }
+
+    /* Animated Border Draw (for rectangular elements) */
+    @keyframes draw-border {
+        0% { width: 0; height: 0; }
+        25% { width: 100%; height: 0; } /* Top border */
+        50% { width: 100%; height: 100%; } /* Right border (height grows) */
+        75% { width: 0; height: 100%; left: auto; right: 0; } /* Bottom border (width shrinks from right) */
+        100% { width: 0; height: 0; top: auto; bottom: 0; left: auto; right: 0; } /* Left border (height shrinks from bottom) */
+    }
+    .animated-border-draw-container {
+        position: relative;
+    }
+    .animated-border-draw-container::before,
+    .animated-border-draw-container::after {
+        content: '';
+        position: absolute;
+        border: 2px solid transparent; /* Transparent base */
+    }
+    .animated-border-draw-container:hover::before {
+        /* This example assumes a blue glow, adapt color as needed */
+        border-color: var(--neon-blue);
+        animation: draw-border 2s linear infinite;
+        /* Adjust animation duration and timing as needed */
+    }
+    /* Note: True border draw is complex. This is a simplified concept.
+       A more robust version might use SVG or multiple pseudo-elements for each side.
+       For this task, we'll apply a simpler pulsing border/shadow enhancement if direct draw is too complex for broad application.
+    */
+
+    /* Enhanced Pulsing Glow */
+    @keyframes pulse-glow-strong {
+        0%, 100% { box-shadow: 0 0 10px var(--neon-current-color), inset 0 0 8px var(--neon-current-color); }
+        50% { box-shadow: 0 0 20px var(--neon-current-color), inset 0 0 15px var(--neon-current-color); }
+    }
+    .animate-pulse-glow-strong {
+        --neon-current-color: var(--neon-pink); /* Default color, override inline or with specific classes */
+        animation: pulse-glow-strong 1.5s infinite alternate;
+    }
+    .neon-blue-glow { --neon-current-color: var(--neon-blue); }
+    .neon-pink-glow { --neon-current-color: var(--neon-pink); }
+    .neon-purple-glow { --neon-current-color: var(--neon-purple); }
+    .neon-green-glow { --neon-current-color: #39ff14; } /* From contact form */
+    .neon-yellow-glow { --neon-current-color: #f3ca20; } /* From contact form */
+
+
+    /* Subtle Background Grid Line Animation (Opacity Pulse) */
+    .grid-pattern-animated {
+        background-image:
+            linear-gradient(rgba(5, 217, 232, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(5, 217, 232, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+        animation: pulse-grid 10s linear infinite alternate;
+    }
+    @keyframes pulse-grid {
+        0% { background-image: linear-gradient(rgba(5, 217, 232, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.05) 1px, transparent 1px); }
+        50% { background-image: linear-gradient(rgba(5, 217, 232, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.15) 1px, transparent 1px); }
+        100% { background-image: linear-gradient(rgba(5, 217, 232, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.05) 1px, transparent 1px); }
+    }
+
+    /* Scanline intensity on hover for specific sections */
+    .scanline-intensify:hover::after {
+        animation: scanline-fast 0.5s linear infinite;
+        background-size: 100% 6px; /* Thicker scanlines on hover */
+    }
+    @keyframes scanline-fast {
+        0% { background-position: 0 0; opacity: 0.5; }
+        100% { background-position: 0 100%; opacity: 0.1; }
+    }
     </style>
 </head>
-<body class="grid-pattern scanline">
+<body class="grid-pattern-animated scanline">
     <div class="container mx-auto px-4 py-12">
         <!-- Header -->
         <header class="text-center mb-12 md:mb-16">
-            <h1 class="cyber-font text-4xl sm:text-5xl md:text-6xl mb-4 md:mb-6 neon-text-pink">NEON<span class="neon-text-blue">WEB</span>_DEV</h1>
+            <h1 class="cyber-font text-4xl sm:text-5xl md:text-6xl mb-4 md:mb-6 neon-text-pink"><span class="animate-text-glitch">NEON</span><span class="neon-text-blue animate-text-flicker-fast">WEB</span>_DEV</h1>
             <p class="text-lg sm:text-xl md:text-2xl neon-text-blue mb-6 md:mb-8 terminal-cursor">>_ WordPress Development in the Cyber Age</p>
             
-            <div class="max-w-3xl mx-auto neon-border-blue p-4 sm:p-6 rounded-lg bg-black bg-opacity-70 backdrop-blur-sm">
+            <div class="max-w-3xl mx-auto neon-border-blue p-4 sm:p-6 rounded-lg bg-black bg-opacity-70 backdrop-blur-sm scanline-intensify">
                 <p class="text-gray-300 mb-4 text-sm sm:text-base">// Welcome to the digital underworld where we craft high-performance WordPress sites with a cyberpunk edge.</p>
                 <p class="text-gray-300 text-sm sm:text-base">// Our services are optimized for speed, security, and that unmistakable neon glow.</p>
             </div>
         </header>
         <section id="neonBuilder" class="container mx-auto px-2 sm:px-4 py-10 md:py-12">
     <div class="text-center mb-10 md:mb-12">
-        <h2 class="cyber-font text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6 neon-text-purple">NEON_<span class="neon-text-blue">BUILDER</span></h2>
+        <h2 class="cyber-font text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6 neon-text-purple">NEON_<span class="neon-text-blue animate-text-flicker-fast">BUILDER</span></h2>
         <p class="text-base sm:text-lg neon-text-blue terminal-cursor">>_ Drag & drop to prototype your cyberpage</p>
     </div>
 
     <div class="builder-container flex flex-col md:flex-row" style="min-height: 60vh; max-height: 80vh;">
         <!-- Component Palette -->
-        <div class="component-palette scanline p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[50vh] md:max-h-full rounded-lg border neon-border-purple md:border-none">
-            <h3 class="neon-text-pink text-lg sm:text-xl mb-3 sm:mb-4 border-b border-neon-blue pb-2">COMPONENT VAULT</h3>
+        <div class="component-palette scanline scanline-intensify p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[50vh] md:max-h-full rounded-lg border neon-border-purple md:border-none">
+            <h3 class="neon-text-pink text-lg sm:text-xl mb-3 sm:mb-4 border-b border-neon-blue pb-2 animate-text-glitch">COMPONENT VAULT</h3>
             
             <div class="space-y-2 sm:space-y-3">
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="hero">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md glow-hover" draggable="true" data-component="hero">
                     <div class="flex items-center mb-1">
                         <i class="fas fa-desktop mr-2 neon-text-blue"></i> 
                         <span class="text-sm sm:text-base">Hero Banner</span>
@@ -175,6 +271,23 @@
                     </div>
                     <p class="text-xs text-gray-400 mt-1 px-1">A Call-to-Action to encourage users to take the next step (e.g., contact, sign up).</p>
                 </div>
+
+                {/* Add these new items below */}
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="services">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-hands-helping mr-2 neon-text-blue"></i>
+                        <span class="text-sm sm:text-base">Service List</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1 px-1">Detail various services offered, often with icons and brief descriptions.</p>
+                </div>
+
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="contact">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-envelope-open-text mr-2 neon-text-purple"></i>
+                        <span class="text-sm sm:text-base">Contact Form</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1 px-1">A placeholder for users to get in touch. (Stylized, non-functional form).</p>
+                </div>
             </div>
         </div>
         
@@ -183,10 +296,10 @@
             <div class="flex flex-col sm:flex-row justify-between items-center mb-3 sm:mb-4">
                 <h3 class="neon-text-blue text-lg sm:text-xl mb-2 sm:mb-0">YOUR PROTOTYPE</h3>
                 <div class="space-x-2 sm:space-x-3">
-                    <button id="resetBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-red-900 hover:bg-red-700 rounded">
+                    <button id="resetBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-red-900 hover:bg-red-700 rounded animate-pulse-glow-strong neon-pink-glow">
                         <i class="fas fa-trash mr-1"></i> Reset
                     </button>
-                    <button id="exportBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gradient-to-r from-blue-600 to-purple-600 rounded">
+                    <button id="exportBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gradient-to-r from-blue-600 to-purple-600 rounded animate-pulse-glow-strong neon-purple-glow">
                         <i class="fas fa-code mr-1"></i> Export
                     </button>
                 </div>
@@ -205,10 +318,10 @@
         <!-- Price Table -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
             <!-- Basic Package - Updated with responsive classes -->
-  <div class="neon-border-blue rounded-lg overflow-hidden glow-hover transform transition-all duration-300">
+  <div class="neon-border-blue rounded-lg overflow-hidden glow-hover transform transition-all duration-300 scanline-intensify">
         <div class="bg-black bg-opacity-80 p-4 sm:p-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
-                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-blue mb-1 sm:mb-0">BASIC HACK</h3>
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-blue mb-1 sm:mb-0 animate-text-flicker-fast">BASIC HACK</h3>
                 <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-pink">$499</span>
             </div>
             <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Entry-level package for startups</p>
@@ -240,7 +353,7 @@
                         </li>
                     </ul>
                     
-                     <button onclick="contactWhatsApp('BASIC HACK')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
+                     <button onclick="contactWhatsApp('BASIC HACK')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center animate-pulse-glow-strong neon-blue-glow">
                 <i class="fas fa-terminal mr-2"></i> INITIATE ORDER
             </button>
                     </button>
@@ -248,13 +361,13 @@
             </div>
             
             <!-- Pro Package -->
-             <div class="neon-border-pink rounded-lg overflow-hidden glow-hover transform transition-all duration-300 relative">
-        <div class="absolute -top-2 -right-2 md:-top-3 md:-right-3 bg-purple-600 text-xs font-bold px-2 py-0.5 md:px-3 md:py-1 rounded-full rotate-12 neon-text-blue">
+             <div class="neon-border-pink rounded-lg overflow-hidden glow-hover transform transition-all duration-300 relative scanline-intensify">
+        <div class="absolute -top-2 -right-2 md:-top-3 md:-right-3 bg-purple-600 text-xs font-bold px-2 py-0.5 md:px-3 md:py-1 rounded-full rotate-12 neon-text-blue animate-text-flicker-fast">
             POPULAR
         </div>
         <div class="bg-black bg-opacity-80 p-4 sm:p-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
-                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-pink mb-1 sm:mb-0">PROTOCOL_UPGRADE</h3>
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-pink mb-1 sm:mb-0 animate-text-flicker-fast">PROTOCOL_UPGRADE</h3>
                 <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-purple">$1,299</span>
             </div>
             <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Advanced business package</p>
@@ -287,7 +400,7 @@
                         </li>
                     </ul>
                     
-            <button onclick="contactWhatsApp('PROTOCOL UPGRADE')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
+            <button onclick="contactWhatsApp('PROTOCOL UPGRADE')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center animate-pulse-glow-strong neon-pink-glow">
                 <i class="fas fa-rocket mr-2"></i> DEPLOY SYSTEM
             </button>
                     </button>
@@ -295,10 +408,10 @@
             </div>
             
             <!-- Enterprise Package -->
-           <div class="neon-border-purple rounded-lg overflow-hidden glow-hover transform transition-all duration-300">
+           <div class="neon-border-purple rounded-lg overflow-hidden glow-hover transform transition-all duration-300 scanline-intensify">
         <div class="bg-black bg-opacity-80 p-4 sm:p-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
-                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-purple mb-1 sm:mb-0">CORP_OVERRIDE</h3>
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-purple mb-1 sm:mb-0 animate-text-flicker-fast">CORP_OVERRIDE</h3>
                 <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-blue">$2,999+</span>
             </div>
             <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Elite corporate package</p>
@@ -330,7 +443,7 @@
                     </ul>
                     
                   
-            <button onclick="contactWhatsApp('CORP OVERRIDE')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-500 hover:to-pink-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
+            <button onclick="contactWhatsApp('CORP OVERRIDE')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-500 hover:to-pink-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center animate-pulse-glow-strong neon-purple-glow">
                 <i class="fas fa-user-secret mr-2"></i> REQUEST ACCESS
             </button>
                     
@@ -339,11 +452,11 @@
         </div>
         
         <!-- Additional Services -->
-        <div class="max-w-4xl mx-auto neon-border-blue rounded-lg p-4 sm:p-6 md:p-8 bg-black bg-opacity-70 backdrop-blur-sm mb-12 md:mb-16">
-            <h2 class="text-2xl sm:text-3xl neon-text-blue mb-4 sm:mb-6 text-center">ADD-ON SERVICES</h2>
+        <div class="max-w-4xl mx-auto neon-border-blue rounded-lg p-4 sm:p-6 md:p-8 bg-black bg-opacity-70 backdrop-blur-sm mb-12 md:mb-16 scanline-intensify">
+            <h2 class="text-2xl sm:text-3xl neon-text-blue mb-4 sm:mb-6 text-center animate-text-glitch">ADD-ON SERVICES</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                <div class="flex items-start">
+                <div class="flex items-start p-2 rounded hover:bg-gray-800/50 transition-colors duration-300">
                     <div class="mr-3 sm:mr-4 mt-1 text-purple-400">
                         <i class="fas fa-bolt text-xl sm:text-2xl"></i>
                     </div>
@@ -493,10 +606,23 @@
                 
                 // Add random glow class
                 this.classList.add(randomColor);
+
+                    // NEW: Add pulse animation class for border
+                    const glowColors = {
+                        'neon-border-blue': 'neon-blue-glow',
+                        'neon-border-pink': 'neon-pink-glow',
+                        'neon-border-purple': 'neon-purple-glow'
+                    };
+                    if (glowColors[randomColor]) {
+                        this.classList.add('animate-pulse-glow-strong', glowColors[randomColor]);
+                    }
             });
             
             card.addEventListener('mouseleave', function() {
                 this.classList.remove('scanline');
+                    // NEW: Remove pulse animation classes
+                    this.classList.remove('animate-pulse-glow-strong', 'neon-blue-glow', 'neon-pink-glow', 'neon-purple-glow');
+                    // Optional: Restore original border color if needed, or let it be removed by the randomizer logic on next mouseenter
             });
         });
           function contactWhatsApp(planName) {
@@ -525,10 +651,126 @@
                         <h3 contenteditable="true" class="neon-text-blue text-xl mb-2 outline-none">BASIC</h3>
                         <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none">Starting at $499</p>
                     </div>
-                    <!-- More pricing columns -->
+                    <!-- More pricing columns can be added here by the user later if needed -->
                 </div>
             </section>
         `,
+
+        features: `
+            <section class="neon-border-purple p-6 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-purple mb-4 outline-none">KEY_FEATURES_GRID</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="neon-border-blue p-4 rounded">
+                        <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none">Feature One</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Description of feature one with a cyberpunk feel.</p>
+                    </div>
+                    <div class="neon-border-pink p-4 rounded">
+                        <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none">Feature Two</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Description of feature two, enhanced for the digital frontier.</p>
+                    </div>
+                    <div class="neon-border-purple p-4 rounded">
+                        <h3 contenteditable="true" class="text-xl neon-text-purple mb-2 outline-none">Feature Three</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Description of feature three, straight from the neon-lit streets.</p>
+                    </div>
+                </div>
+            </section>
+        `,
+
+        testimonials: `
+            <section class="neon-border-pink p-6 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-pink mb-4 outline-none">CLIENT_ECHOES</h2>
+                <div class="space-y-4">
+                    <div class="neon-border-blue p-4 rounded bg-opacity-50 bg-black">
+                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none">"This service is a paradigm shift in cybernetic integration..."</p>
+                        <h4 contenteditable="true" class="neon-text-blue text-right outline-none">- User_7C3, Nova Corp</h4>
+                    </div>
+                    <div class="neon-border-purple p-4 rounded bg-opacity-50 bg-black">
+                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none">"My digital footprint has never been stronger. Peak performance!"</p>
+                        <h4 contenteditable="true" class="neon-text-purple text-right outline-none">- Ghost_Rider, Sector Gamma</h4>
+                    </div>
+                </div>
+            </section>
+        `,
+
+        cta: `
+            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-80 relative group text-center">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-3xl neon-text-blue mb-4 outline-none">ENGAGE_PROTOCOL</h2>
+                <p contenteditable="true" class="neon-text-pink mb-6 text-lg outline-none">The future awaits. Connect now to redefine your reality.</p>
+                <button class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg neon-text-blue transition-all duration-300 ease-in-out transform hover:scale-105">
+                    <span contenteditable="true" class="outline-none">INITIATE_CONTACT</span> <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </section>
+        `,
+
+        services: `
+            <section class="neon-border-green p-6 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-green mb-6 outline-none text-center">OUR_SERVICES_MATRIX</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start p-4 neon-border-blue rounded">
+                        <i class="fas fa-cogs neon-text-blue text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none">Service Array One</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Description of the first service array, deployable on demand.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 neon-border-pink rounded">
+                        <i class="fas fa-shield-alt neon-text-pink text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none">Service Array Two</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Secure and robust second service array, for critical operations.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 neon-border-purple rounded">
+                        <i class="fas fa-microchip neon-text-purple text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 contenteditable="true" class="text-xl neon-text-purple mb-2 outline-none">Service Array Three</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Advanced micro-processing service array, cutting edge solutions.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 neon-border-green rounded">
+                        <i class="fas fa-network-wired neon-text-green text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 contenteditable="true" class="text-xl neon-text-green mb-2 outline-none">Service Array Four</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Interlinked network service array, for maximum connectivity.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `,
+
+        contact: `
+            <section class="neon-border-yellow p-6 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-yellow mb-6 outline-none text-center">ESTABLISH_CONTACT_LINK</h2>
+                <div class="max-w-lg mx-auto">
+                    <div class="mb-4">
+                        <label contenteditable="true" for="cyber_callsign" class="block neon-text-blue text-sm font-bold mb-2 outline-none">Your Callsign (ID):</label>
+                        <input type="text" id="cyber_callsign" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-blue text-gray-300 focus:outline-none focus:border-neon-pink" placeholder="e.g., Ghost_Decoder_77">
+                    </div>
+                    <div class="mb-4">
+                        <label contenteditable="true" for="cyber_message_packet" class="block neon-text-pink text-sm font-bold mb-2 outline-none">Message Packet:</label>
+                        <textarea id="cyber_message_packet" rows="4" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-pink text-gray-300 focus:outline-none focus:border-neon-purple" placeholder="Encode your query here..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="bg-gradient-to-r from-yellow-500 via-red-500 to-pink-600 hover:from-yellow-400 text-white font-bold py-2 px-6 rounded-lg shadow-md neon-text-black transition-all duration-300 ease-in-out transform hover:scale-105">
+                            <span contenteditable="true" class="outline-none">TRANSMIT_PACKET</span> <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                <style>
+                    .neon-input::placeholder { color: #555; }
+                    .neon-input:focus { box-shadow: 0 0 8px var(--neon-purple); }
+                    .neon-text-yellow { color: #f3ca20; text-shadow: 0 0 5px #f3ca20, 0 0 10px #f3ca20;}
+                    .neon-border-yellow { border: 2px solid #f3ca20; box-shadow: 0 0 10px #f3ca20, inset 0 0 10px #f3ca20;}
+                    .neon-text-green { color: #39ff14; text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;}
+                    .neon-border-green { border: 2px solid #39ff14; box-shadow: 0 0 10px #39ff14, inset 0 0 10px #39ff14;}
+                </style>
+            </section>
+        `
         // Add other components following the same pattern
     };
 
