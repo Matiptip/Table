@@ -115,108 +115,132 @@
 <body class="grid-pattern scanline">
     <div class="container mx-auto px-4 py-12">
         <!-- Header -->
-        <header class="text-center mb-16">
-            <h1 class="cyber-font text-4xl md:text-6xl mb-6 neon-text-pink">NEON<span class="neon-text-blue">WEB</span>_DEV</h1>
-            <p class="text-xl md:text-2xl neon-text-blue mb-8 terminal-cursor">>_ WordPress Development in the Cyber Age</p>
+        <header class="text-center mb-12 md:mb-16">
+            <h1 class="cyber-font text-4xl sm:text-5xl md:text-6xl mb-4 md:mb-6 neon-text-pink">NEON<span class="neon-text-blue">WEB</span>_DEV</h1>
+            <p class="text-lg sm:text-xl md:text-2xl neon-text-blue mb-6 md:mb-8 terminal-cursor">>_ WordPress Development in the Cyber Age</p>
             
-            <div class="max-w-3xl mx-auto neon-border-blue p-6 rounded-lg bg-black bg-opacity-70 backdrop-blur-sm">
-                <p class="text-gray-300 mb-4">// Welcome to the digital underworld where we craft high-performance WordPress sites with a cyberpunk edge.</p>
-                <p class="text-gray-300">// Our services are optimized for speed, security, and that unmistakable neon glow.</p>
+            <div class="max-w-3xl mx-auto neon-border-blue p-4 sm:p-6 rounded-lg bg-black bg-opacity-70 backdrop-blur-sm">
+                <p class="text-gray-300 mb-4 text-sm sm:text-base">// Welcome to the digital underworld where we craft high-performance WordPress sites with a cyberpunk edge.</p>
+                <p class="text-gray-300 text-sm sm:text-base">// Our services are optimized for speed, security, and that unmistakable neon glow.</p>
             </div>
         </header>
-        <section id="neonBuilder" class="container mx-auto px-4 py-12">
-    <div class="text-center mb-12">
-        <h2 class="cyber-font text-3xl md:text-4xl mb-6 neon-text-purple">NEON_<span class="neon-text-blue">BUILDER</span></h2>
-        <p class="text-lg neon-text-blue terminal-cursor">>_ Drag & drop to prototype your cyberpage</p>
+        <section id="neonBuilder" class="container mx-auto px-2 sm:px-4 py-10 md:py-12">
+    <div class="text-center mb-10 md:mb-12">
+        <h2 class="cyber-font text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6 neon-text-purple">NEON_<span class="neon-text-blue">BUILDER</span></h2>
+        <p class="text-base sm:text-lg neon-text-blue terminal-cursor">>_ Drag & drop to prototype your cyberpage</p>
     </div>
 
-    <div class="builder-container" style="height: 70vh;">
+    <div class="builder-container flex flex-col md:flex-row" style="min-height: 60vh; max-height: 80vh;">
         <!-- Component Palette -->
-        <div class="component-palette scanline p-4">
-            <h3 class="neon-text-pink text-xl mb-4 border-b border-neon-blue pb-2">COMPONENT VAULT</h3>
+        <div class="component-palette scanline p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[50vh] md:max-h-full rounded-lg border neon-border-purple md:border-none">
+            <h3 class="neon-text-pink text-lg sm:text-xl mb-3 sm:mb-4 border-b border-neon-blue pb-2">COMPONENT VAULT</h3>
             
-            <div class="space-y-3">
-                <div class="component-item" draggable="true" data-component="hero">
-                    <i class="fas fa-desktop mr-2 neon-text-blue"></i> Hero Banner
+            <div class="space-y-2 sm:space-y-3">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="hero">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-desktop mr-2 neon-text-blue"></i> 
+                        <span class="text-sm sm:text-base">Hero Banner</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1 px-1">A prominent section for the top of your page, usually with a large image or headline.</p>
                 </div>
                 
-                <div class="component-item" draggable="true" data-component="features">
-                    <i class="fas fa-cogs mr-2 neon-text-pink"></i> Features Grid
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="features">
+                     <div class="flex items-center mb-1">
+                        <i class="fas fa-cogs mr-2 neon-text-pink"></i>
+                        <span class="text-sm sm:text-base">Features Grid</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1 px-1">Showcase key features or services in a structured grid layout.</p>
                 </div>
                 
-                <div class="component-item" draggable="true" data-component="pricing">
-                    <i class="fas fa-tags mr-2 neon-text-purple"></i> Pricing Table
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="pricing">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-tags mr-2 neon-text-purple"></i>
+                        <span class="text-sm sm:text-base">Pricing Table</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1 px-1">Display your service packages or product prices in a clear, comparable format.</p>
                 </div>
                 
-                <div class="component-item" draggable="true" data-component="testimonials">
-                    <i class="fas fa-quote-right mr-2 neon-text-blue"></i> Testimonials
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="testimonials">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-quote-right mr-2 neon-text-blue"></i>
+                        <span class="text-sm sm:text-base">Testimonials</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1 px-1">Share positive feedback from clients to build trust and credibility.</p>
                 </div>
                 
-                <div class="component-item" draggable="true" data-component="cta">
-                    <i class="fas fa-bolt mr-2 neon-text-pink"></i> CTA Section
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="cta">
+                    <div class="flex items-center mb-1">
+                        <i class="fas fa-bolt mr-2 neon-text-pink"></i>
+                        <span class="text-sm sm:text-base">CTA Section</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1 px-1">A Call-to-Action to encourage users to take the next step (e.g., contact, sign up).</p>
                 </div>
             </div>
         </div>
         
         <!-- Workspace -->
-        <div class="workspace grid-pattern p-4">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="neon-text-blue text-xl">YOUR PROTOTYPE</h3>
-                <div class="space-x-3">
-                    <button id="resetBtn" class="px-4 py-2 bg-red-900 hover:bg-red-700 rounded text-xs">
+        <div class="workspace grid-pattern p-3 sm:p-4 md:flex-1 overflow-y-auto rounded-lg border neon-border-blue">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-3 sm:mb-4">
+                <h3 class="neon-text-blue text-lg sm:text-xl mb-2 sm:mb-0">YOUR PROTOTYPE</h3>
+                <div class="space-x-2 sm:space-x-3">
+                    <button id="resetBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-red-900 hover:bg-red-700 rounded">
                         <i class="fas fa-trash mr-1"></i> Reset
                     </button>
-                    <button id="exportBtn" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded text-xs">
+                    <button id="exportBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gradient-to-r from-blue-600 to-purple-600 rounded">
                         <i class="fas fa-code mr-1"></i> Export
                     </button>
                 </div>
             </div>
             
-            <div id="previewArea" class="min-h-[60vh] neon-border-blue p-4 bg-black bg-opacity-50">
-                <p class="neon-text-blue text-center mt-20 opacity-70">Drag components here to begin</p>
+            <div id="previewArea" class="min-h-[50vh] md:min-h-[calc(100%-4rem)] neon-border-blue p-3 sm:p-4 bg-black bg-opacity-50 rounded-md">
+                <div class="text-center mt-10 sm:mt-16 opacity-70">
+            <p class="neon-text-blue text-base sm:text-lg mb-2">This is your canvas.</p>
+            <p class="text-gray-400 text-xs sm:text-sm mb-2">Drag components from the 'COMPONENT VAULT' on the left and drop them here to build your page structure.</p>
+            <p class="text-gray-500 text-xs">(You can then customize the content of each dropped component.)</p>
+        </div>
             </div>
         </div>
     </div>
 </section>
         <!-- Price Table -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
             <!-- Basic Package - Updated with responsive classes -->
   <div class="neon-border-blue rounded-lg overflow-hidden glow-hover transform transition-all duration-300">
-        <div class="bg-black bg-opacity-80 p-4 md:p-6">
-            <div class="flex justify-between items-start md:items-center mb-4 md:mb-6 flex-col md:flex-row">
-                <h3 class="text-xl md:text-2xl neon-text-blue mb-2 md:mb-0">BASIC HACK</h3>
-                <span class="text-2xl md:text-3xl font-bold neon-text-pink">$499</span>
+        <div class="bg-black bg-opacity-80 p-4 sm:p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-blue mb-1 sm:mb-0">BASIC HACK</h3>
+                <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-pink">$499</span>
             </div>
-            <p class="text-sm md:text-base text-gray-400 mb-4 md:mb-6">// Entry-level package for startups</p>
+            <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Entry-level package for startups</p>
                     
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                    <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Custom WordPress Theme</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>5 Custom Page Templates</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Basic SEO Optimization</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Mobile Responsive Design</span>
                         </li>
-                        <li class="flex items-center text-gray-500">
-                            <i class="fas fa-times-circle text-red-400 mr-3"></i>
+                        <li class="flex items-center text-gray-500 text-xs sm:text-sm">
+                            <i class="fas fa-times-circle text-red-400 mr-2 sm:mr-3"></i>
                             <span>E-commerce Functionality</span>
                         </li>
-                        <li class="flex items-center text-gray-500">
-                            <i class="fas fa-times-circle text-red-400 mr-3"></i>
+                        <li class="flex items-center text-gray-500 text-xs sm:text-sm">
+                            <i class="fas fa-times-circle text-red-400 mr-2 sm:mr-3"></i>
                             <span>Advanced Animations</span>
                         </li>
                     </ul>
                     
-                     <button onclick="contactWhatsApp('BASIC HACK')" class="w-full py-2 md:py-3 text-sm md:text-base bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
+                     <button onclick="contactWhatsApp('BASIC HACK')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
                 <i class="fas fa-terminal mr-2"></i> INITIATE ORDER
             </button>
                     </button>
@@ -228,42 +252,42 @@
         <div class="absolute -top-2 -right-2 md:-top-3 md:-right-3 bg-purple-600 text-xs font-bold px-2 py-0.5 md:px-3 md:py-1 rounded-full rotate-12 neon-text-blue">
             POPULAR
         </div>
-        <div class="bg-black bg-opacity-80 p-4 md:p-6">
-            <div class="flex justify-between items-start md:items-center mb-4 md:mb-6 flex-col md:flex-row">
-                <h3 class="text-xl md:text-2xl neon-text-pink mb-2 md:mb-0">PROTOCOL_UPGRADE</h3>
-                <span class="text-2xl md:text-3xl font-bold neon-text-purple">$1,299</span>
+        <div class="bg-black bg-opacity-80 p-4 sm:p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-pink mb-1 sm:mb-0">PROTOCOL_UPGRADE</h3>
+                <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-purple">$1,299</span>
             </div>
-            <p class="text-sm md:text-base text-gray-400 mb-4 md:mb-6">// Advanced business package</p>
+            <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Advanced business package</p>
         
                     
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                    <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Premium Custom Theme</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>10+ Custom Page Templates</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Advanced SEO Optimization</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Interactive Elements</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>WooCommerce Integration</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Cyberpunk UI Elements</span>
                         </li>
                     </ul>
                     
-            <button onclick="contactWhatsApp('PROTOCOL UPGRADE')" class="w-full py-2 md:py-3 text-sm md:text-base bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
+            <button onclick="contactWhatsApp('PROTOCOL UPGRADE')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
                 <i class="fas fa-rocket mr-2"></i> DEPLOY SYSTEM
             </button>
                     </button>
@@ -272,41 +296,41 @@
             
             <!-- Enterprise Package -->
            <div class="neon-border-purple rounded-lg overflow-hidden glow-hover transform transition-all duration-300">
-        <div class="bg-black bg-opacity-80 p-4 md:p-6">
-            <div class="flex justify-between items-start md:items-center mb-4 md:mb-6 flex-col md:flex-row">
-                <h3 class="text-xl md:text-2xl neon-text-purple mb-2 md:mb-0">CORP_OVERRIDE</h3>
-                <span class="text-2xl md:text-3xl font-bold neon-text-blue">$2,999+</span>
+        <div class="bg-black bg-opacity-80 p-4 sm:p-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-purple mb-1 sm:mb-0">CORP_OVERRIDE</h3>
+                <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-blue">$2,999+</span>
             </div>
-            <p class="text-sm md:text-base text-gray-400 mb-4 md:mb-6">// Elite corporate package</p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+            <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Elite corporate package</p>
+                    <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Fully Custom WordPress Build</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Unlimited Page Templates</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Enterprise SEO Strategy</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Custom Plugins Development</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>Multi-site Network</span>
                         </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                        <li class="flex items-center text-xs sm:text-sm">
+                            <i class="fas fa-check-circle text-green-400 mr-2 sm:mr-3"></i>
                             <span>24/7 Priority Support</span>
                         </li>
                     </ul>
                     
                   
-            <button onclick="contactWhatsApp('CORP OVERRIDE')" class="w-full py-2 md:py-3 text-sm md:text-base bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-500 hover:to-pink-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
+            <button onclick="contactWhatsApp('CORP OVERRIDE')" class="w-full py-2 text-xs sm:text-sm md:text-base md:py-3 bg-gradient-to-r from-blue-600 to-pink-600 hover:from-blue-500 hover:to-pink-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
                 <i class="fas fa-user-secret mr-2"></i> REQUEST ACCESS
             </button>
                     
@@ -315,147 +339,89 @@
         </div>
         
         <!-- Additional Services -->
-        <div class="max-w-4xl mx-auto neon-border-blue rounded-lg p-8 bg-black bg-opacity-70 backdrop-blur-sm mb-16">
-            <h2 class="text-3xl neon-text-blue mb-6 text-center">ADD-ON SERVICES</h2>
+        <div class="max-w-4xl mx-auto neon-border-blue rounded-lg p-4 sm:p-6 md:p-8 bg-black bg-opacity-70 backdrop-blur-sm mb-12 md:mb-16">
+            <h2 class="text-2xl sm:text-3xl neon-text-blue mb-4 sm:mb-6 text-center">ADD-ON SERVICES</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div class="flex items-start">
-                    <div class="mr-4 mt-1 text-purple-400">
-                        <i class="fas fa-bolt text-2xl"></i>
+                    <div class="mr-3 sm:mr-4 mt-1 text-purple-400">
+                        <i class="fas fa-bolt text-xl sm:text-2xl"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl neon-text-pink mb-2">SPEED BOOST</h4>
-                        <p class="text-gray-400">Turbocharge your site with advanced optimization techniques.</p>
-                        <p class="text-gray-300 mt-2">+$299</p>
+                        <h4 class="text-lg sm:text-xl neon-text-pink mb-1 sm:mb-2">SPEED BOOST</h4>
+                        <p class="text-xs sm:text-sm text-gray-400">Turbocharge your site with advanced optimization techniques.</p>
+                        <p class="text-xs sm:text-sm text-gray-300 mt-1 sm:mt-2">+$299</p>
                     </div>
                 </div>
                 
                 <div class="flex items-start">
-                    <div class="mr-4 mt-1 text-blue-400">
-                        <i class="fas fa-shield-alt text-2xl"></i>
+                    <div class="mr-3 sm:mr-4 mt-1 text-blue-400">
+                        <i class="fas fa-shield-alt text-xl sm:text-2xl"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl neon-text-blue mb-2">SECURITY LOCK</h4>
-                        <p class="text-gray-400">Military-grade security hardening for your WordPress site.</p>
-                        <p class="text-gray-300 mt-2">+$399</p>
+                        <h4 class="text-lg sm:text-xl neon-text-blue mb-1 sm:mb-2">SECURITY LOCK</h4>
+                        <p class="text-xs sm:text-sm text-gray-400">Military-grade security hardening for your WordPress site.</p>
+                        <p class="text-xs sm:text-sm text-gray-300 mt-1 sm:mt-2">+$399</p>
                     </div>
                 </div>
                 
                 <div class="flex items-start">
-                    <div class="mr-4 mt-1 text-pink-400">
-                        <i class="fas fa-robot text-2xl"></i>
+                    <div class="mr-3 sm:mr-4 mt-1 text-pink-400">
+                        <i class="fas fa-robot text-xl sm:text-2xl"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl neon-text-purple mb-2">AI INTEGRATION</h4>
-                        <p class="text-gray-400">Add cutting-edge AI features to your website.</p>
-                        <p class="text-gray-300 mt-2">+$599</p>
+                        <h4 class="text-lg sm:text-xl neon-text-purple mb-1 sm:mb-2">AI INTEGRATION</h4>
+                        <p class="text-xs sm:text-sm text-gray-400">Add cutting-edge AI features to your website.</p>
+                        <p class="text-xs sm:text-sm text-gray-300 mt-1 sm:mt-2">+$599</p>
                     </div>
                 </div>
                 
                 <div class="flex items-start">
-                    <div class="mr-4 mt-1 text-green-400">
-                        <i class="fas fa-chart-line text-2xl"></i>
+                    <div class="mr-3 sm:mr-4 mt-1 text-green-400">
+                        <i class="fas fa-chart-line text-xl sm:text-2xl"></i>
                     </div>
                     <div>
-                        <h4 class="text-xl neon-text-blue mb-2">SEO OVERDRIVE</h4>
-                        <p class="text-gray-400">Comprehensive SEO package to dominate search rankings.</p>
-                        <p class="text-gray-300 mt-2">+$499</p>
+                        <h4 class="text-lg sm:text-xl neon-text-blue mb-1 sm:mb-2">SEO OVERDRIVE</h4>
+                        <p class="text-xs sm:text-sm text-gray-400">Comprehensive SEO package to dominate search rankings.</p>
+                        <p class="text-xs sm:text-sm text-gray-300 mt-1 sm:mt-2">+$499</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Testimonials -->
-        <div class="max-w-4xl mx-auto mb-16">
-            <h2 class="text-3xl neon-text-pink mb-8 text-center">CLIENT_<span class="neon-text-blue">FEEDBACK</span></h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="neon-border-purple rounded-lg p-6 bg-black bg-opacity-70">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-purple-600 flex items-center justify-center mr-4">
-                            <i class="fas fa-user-astronaut text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="neon-text-blue">NOVA CORP</h4>
-                            <p class="text-gray-400 text-sm">CEO, Cyber Systems</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 italic">"The Protocol Upgrade package transformed our digital presence. The cyberpunk aesthetic perfectly matches our brand identity and the performance is unmatched."</p>
-                    <div class="flex mt-4">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-                
-                <div class="neon-border-blue rounded-lg p-6 bg-black bg-opacity-70">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center mr-4">
-                            <i class="fas fa-user-ninja text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="neon-text-pink">SHADOW TECH</h4>
-                            <p class="text-gray-400 text-sm">CTO, Data Systems</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 italic">"NeonWeb delivered beyond our expectations. The custom plugins they developed for our enterprise solution work flawlessly and the support is exceptional."</p>
-                    <div class="flex mt-4">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star-half-alt text-yellow-400"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
         
-        <!-- CTA -->
-        <div class="text-center neon-border-pink rounded-lg p-8 bg-black bg-opacity-70 max-w-4xl mx-auto">
-            <h2 class="text-3xl neon-text-purple mb-4">READY_TO_HACK_THE_MAINFRAME?</h2>
-            <p class="text-xl neon-text-blue mb-6">Let's build something extraordinary together</p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <button class="px-8 py-3 bg-gradient-to-r from-pink-600 to-blue-600 hover:from-pink-500 hover:to-blue-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
-                    <i class="fas fa-comment-dots mr-2"></i> CHAT WITH US
-                </button>
-                <button class="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 rounded-md font-bold transition-all duration-300 flex items-center justify-center">
-                    <i class="fas fa-envelope mr-2"></i> SEND DATAPACKET
-                </button>
-            </div>
-        </div>
     </div>
     
     <!-- Footer -->
-    <footer class="border-t border-gray-800 mt-16 py-8">
-        <div class="container mx-auto px-4">
+    <footer class="border-t border-gray-800 mt-12 md:mt-16 py-6 md:py-8">
+        <div class="container mx-auto px-3 sm:px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <h3 class="cyber-font text-2xl neon-text-blue">NEON<span class="neon-text-pink">WEB</span>_DEV</h3>
-                    <p class="text-gray-500 text-sm">// Cyberpunk WordPress Development since 2077</p>
+                <div class="mb-4 md:mb-0 text-center md:text-left">
+                    <h3 class="cyber-font text-xl sm:text-2xl neon-text-blue">NEON<span class="neon-text-pink">WEB</span>_DEV</h3>
+                    <p class="text-gray-500 text-xs sm:text-sm">// Cyberpunk WordPress Development since 2077</p>
                 </div>
                 
-                <div class="flex space-x-6">
+                </div>
+                
+                <div class="flex space-x-4 sm:space-x-6">
                     <a href="#" class="text-gray-400 hover:text-pink-400 transition-colors duration-300">
-                        <i class="fab fa-github text-xl"></i>
+                        <i class="fab fa-github text-lg sm:text-xl"></i>
                     </a>
                     <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors duration-300">
-                        <i class="fab fa-twitter text-xl"></i>
+                        <i class="fab fa-twitter text-lg sm:text-xl"></i>
                     </a>
                     <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors duration-300">
-                        <i class="fab fa-discord text-xl"></i>
+                        <i class="fab fa-discord text-lg sm:text-xl"></i>
                     </a>
                     <a href="#" class="text-gray-400 hover:text-red-400 transition-colors duration-300">
-                        <i class="fab fa-youtube text-xl"></i>
+                        <i class="fab fa-youtube text-lg sm:text-xl"></i>
                     </a>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+            <div class="border-t border-gray-800 mt-6 md:mt-8 pt-6 md:pt-8 text-center text-gray-500 text-xs sm:text-sm">
                 <p>© 2023 NeonWeb Dev. All systems operational. // This website is protected by neural firewalls.</p>
-                <p class="mt-2">Designed in the neon glow of Night City.</p>
+                <p class="mt-1 sm:mt-2">Designed in the neon glow of Night City.</p>
             </div>
         </div>
     </footer>
@@ -617,7 +583,13 @@
 
     // Reset functionality
     document.getElementById('resetBtn').addEventListener('click', () => {
-        previewArea.innerHTML = '<p class="neon-text-blue text-center mt-20 opacity-70">Drag components here to begin</p>';
+        previewArea.innerHTML = `
+        <div class="text-center mt-16 opacity-70">
+            <p class="neon-text-blue text-lg mb-2">This is your canvas.</p>
+            <p class="text-gray-400 text-sm mb-2">Drag components from the 'COMPONENT VAULT' on the left and drop them here to build your page structure.</p>
+            <p class="text-gray-500 text-xs">(You can then customize the content of each dropped component.)</p>
+        </div>
+        `;
     });
     </script>
 </body>
