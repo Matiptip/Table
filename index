@@ -204,7 +204,7 @@
 
     <div class="builder-container flex flex-col md:flex-row" style="min-height: 60vh; max-height: 80vh;">
         <!-- Component Palette -->
-        <div class="component-palette scanline scanline-intensify p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[45vh] md:max-h-[65vh] rounded-lg border neon-border-purple md:border-none">
+        <div class="component-palette scanline scanline-intensify p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[35vh] md:max-h-[65vh] rounded-lg border neon-border-purple md:border-none">
             <h3 class="neon-text-pink text-lg sm:text-xl mb-3 sm:mb-4 border-b border-neon-blue pb-2 animate-text-glitch">COMPONENT VAULT</h3>
             
             <div class="space-y-2 sm:space-y-3">
@@ -268,7 +268,7 @@
         </div>
         
         <!-- Workspace -->
-        <div class="workspace grid-pattern p-3 sm:p-4 md:flex-1 overflow-y-auto rounded-lg border neon-border-blue">
+        <div class="workspace grid-pattern p-3 sm:p-4 flex-1 md:flex-1 overflow-y-auto rounded-lg border neon-border-blue">
             <div class="flex flex-col sm:flex-row justify-between items-center mb-3 sm:mb-4">
                 <h3 class="neon-text-blue text-lg sm:text-xl mb-2 sm:mb-0">YOUR PROTOTYPE</h3>
                 <div class="space-x-2 sm:space-x-3">
@@ -281,7 +281,7 @@
                 </div>
             </div>
             
-            <div id="previewArea" class="min-h-[50vh] md:min-h-[calc(100%-4rem)] neon-border-blue p-3 sm:p-4 bg-black bg-opacity-50 rounded-md">
+            <div id="previewArea" class="min-h-[40vh] md:min-h-[calc(100%-4rem)] neon-border-blue p-3 sm:p-4 bg-black bg-opacity-50 rounded-md">
                 <div class="text-center mt-10 sm:mt-16 opacity-70">
             <p class="neon-text-blue text-base sm:text-lg mb-2">This is your canvas.</p>
             <p class="text-gray-400 text-xs sm:text-sm mb-2">Drag components from the 'COMPONENT VAULT' on the left and drop them here to build your page structure.</p>
