@@ -1,4 +1,3 @@
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,7 +57,7 @@
         
         .glow-hover:hover {
             transform: scale(1.02);
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; /* Ensure smooth transition for glow-hover */
         }
         
         .scanline {
@@ -85,12 +84,8 @@
         }
         
         @keyframes scanline {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 0 100%;
-            }
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
         }
         
         .terminal-cursor::after {
@@ -104,108 +99,89 @@
             50% { opacity: 0; }
         }
         
-        .grid-pattern {
-            background-image: 
+        /* grid-pattern is now grid-pattern-animated, definition changed below */
+
+        /* --- Cyberpunk Animation Refinements --- */
+
+        /* Text Glitch/Flicker Effect - Made more subtle */
+        @keyframes text-glitch {
+            5%, 45% { /* Less frequent */
+                transform: translate(1px, 0) skew(0deg);
+                opacity: 0.9;
+            }
+            10%, 40% {
+                transform: translate(-1px, 0) skew(0deg);
+            }
+            15%, 35% { /* Shorter duration of effect */
+                transform: translate(0, 0) skew(1deg);
+            }
+        }
+        .animate-text-glitch {
+            animation: text-glitch 2.5s linear infinite; /* Slowed down */
+            display: inline-block;
+        }
+
+        @keyframes text-flicker-fast { /* Kept as is, but applied more sparingly */
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+        .animate-text-flicker-fast {
+            animation: text-flicker-fast 0.2s linear infinite alternate;
+        }
+
+        /* Enhanced Pulsing Glow - Smoother timing */
+        @keyframes pulse-glow-strong {
+            0%, 100% { box-shadow: 0 0 10px var(--neon-current-color), inset 0 0 8px var(--neon-current-color); }
+            50% { box-shadow: 0 0 20px var(--neon-current-color), inset 0 0 15px var(--neon-current-color); }
+        }
+        .animate-pulse-glow-strong {
+            --neon-current-color: var(--neon-pink); /* Default */
+            animation: pulse-glow-strong 2s ease-in-out infinite alternate; /* Smoother and slightly slower */
+        }
+        .neon-blue-glow { --neon-current-color: var(--neon-blue); }
+        .neon-pink-glow { --neon-current-color: var(--neon-pink); }
+        .neon-purple-glow { --neon-current-color: var(--neon-purple); }
+        .neon-green-glow { --neon-current-color: #39ff14; }
+        .neon-yellow-glow { --neon-current-color: #f3ca20; }
+
+        /* Animated Background Grid Line Animation */
+        .grid-pattern-animated { /* Replaces old .grid-pattern */
+            background-image:
                 linear-gradient(rgba(5, 217, 232, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(5, 217, 232, 0.1) 1px, transparent 1px);
             background-size: 20px 20px;
+            animation: pulse-grid 10s linear infinite alternate;
+        }
+        @keyframes pulse-grid {
+            0% { background-image: linear-gradient(rgba(5, 217, 232, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.05) 1px, transparent 1px); }
+            50% { background-image: linear-gradient(rgba(5, 217, 232, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.15) 1px, transparent 1px); }
+            100% { background-image: linear-gradient(rgba(5, 217, 232, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.05) 1px, transparent 1px); }
         }
 
-    /* --- Cyberpunk Animation Additions --- */
-
-    /* Text Glitch/Flicker Effect */
-    @keyframes text-glitch {
-        2%, 64% {
-            transform: translate(2px, 0) skew(0deg);
-            opacity: 0.8;
+        /* Scanline intensity on hover */
+        .scanline-intensify:hover::after {
+            animation: scanline-fast 0.5s linear infinite;
+            background-size: 100% 6px; /* Thicker scanlines */
         }
-        4%, 60% {
-            transform: translate(-2px, 0) skew(0deg);
+        @keyframes scanline-fast {
+            0% { background-position: 0 0; opacity: 0.5; }
+            100% { background-position: 0 100%; opacity: 0.1; }
         }
-        62% {
-            transform: translate(0, 0) skew(5deg);
+        
+        /* New Animation for Dropped Builder Components */
+        @keyframes fadeInSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-    }
-    .animate-text-glitch {
-        animation: text-glitch 1s linear infinite;
-        display: inline-block; /* Important for transform to work well */
-    }
-
-    @keyframes text-flicker-fast {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-    .animate-text-flicker-fast {
-        animation: text-flicker-fast 0.2s linear infinite alternate;
-    }
-
-    /* Animated Border Draw (for rectangular elements) */
-    @keyframes draw-border {
-        0% { width: 0; height: 0; }
-        25% { width: 100%; height: 0; } /* Top border */
-        50% { width: 100%; height: 100%; } /* Right border (height grows) */
-        75% { width: 0; height: 100%; left: auto; right: 0; } /* Bottom border (width shrinks from right) */
-        100% { width: 0; height: 0; top: auto; bottom: 0; left: auto; right: 0; } /* Left border (height shrinks from bottom) */
-    }
-    .animated-border-draw-container {
-        position: relative;
-    }
-    .animated-border-draw-container::before,
-    .animated-border-draw-container::after {
-        content: '';
-        position: absolute;
-        border: 2px solid transparent; /* Transparent base */
-    }
-    .animated-border-draw-container:hover::before {
-        /* This example assumes a blue glow, adapt color as needed */
-        border-color: var(--neon-blue);
-        animation: draw-border 2s linear infinite;
-        /* Adjust animation duration and timing as needed */
-    }
-    /* Note: True border draw is complex. This is a simplified concept.
-       A more robust version might use SVG or multiple pseudo-elements for each side.
-       For this task, we'll apply a simpler pulsing border/shadow enhancement if direct draw is too complex for broad application.
-    */
-
-    /* Enhanced Pulsing Glow */
-    @keyframes pulse-glow-strong {
-        0%, 100% { box-shadow: 0 0 10px var(--neon-current-color), inset 0 0 8px var(--neon-current-color); }
-        50% { box-shadow: 0 0 20px var(--neon-current-color), inset 0 0 15px var(--neon-current-color); }
-    }
-    .animate-pulse-glow-strong {
-        --neon-current-color: var(--neon-pink); /* Default color, override inline or with specific classes */
-        animation: pulse-glow-strong 1.5s infinite alternate;
-    }
-    .neon-blue-glow { --neon-current-color: var(--neon-blue); }
-    .neon-pink-glow { --neon-current-color: var(--neon-pink); }
-    .neon-purple-glow { --neon-current-color: var(--neon-purple); }
-    .neon-green-glow { --neon-current-color: #39ff14; } /* From contact form */
-    .neon-yellow-glow { --neon-current-color: #f3ca20; } /* From contact form */
-
-
-    /* Subtle Background Grid Line Animation (Opacity Pulse) */
-    .grid-pattern-animated {
-        background-image:
-            linear-gradient(rgba(5, 217, 232, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(5, 217, 232, 0.1) 1px, transparent 1px);
-        background-size: 20px 20px;
-        animation: pulse-grid 10s linear infinite alternate;
-    }
-    @keyframes pulse-grid {
-        0% { background-image: linear-gradient(rgba(5, 217, 232, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.05) 1px, transparent 1px); }
-        50% { background-image: linear-gradient(rgba(5, 217, 232, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.15) 1px, transparent 1px); }
-        100% { background-image: linear-gradient(rgba(5, 217, 232, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.05) 1px, transparent 1px); }
-    }
-
-    /* Scanline intensity on hover for specific sections */
-    .scanline-intensify:hover::after {
-        animation: scanline-fast 0.5s linear infinite;
-        background-size: 100% 6px; /* Thicker scanlines on hover */
-    }
-    @keyframes scanline-fast {
-        0% { background-position: 0 0; opacity: 0.5; }
-        100% { background-position: 0 100%; opacity: 0.1; }
-    }
+        .builder-component-appear {
+            animation: fadeInSlideUp 0.5s ease-out forwards;
+        }
     </style>
 </head>
 <body class="grid-pattern-animated scanline">
@@ -228,11 +204,11 @@
 
     <div class="builder-container flex flex-col md:flex-row" style="min-height: 60vh; max-height: 80vh;">
         <!-- Component Palette -->
-        <div class="component-palette scanline scanline-intensify p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[50vh] md:max-h-full rounded-lg border neon-border-purple md:border-none">
+        <div class="component-palette scanline scanline-intensify p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[45vh] md:max-h-[65vh] rounded-lg border neon-border-purple md:border-none">
             <h3 class="neon-text-pink text-lg sm:text-xl mb-3 sm:mb-4 border-b border-neon-blue pb-2 animate-text-glitch">COMPONENT VAULT</h3>
             
             <div class="space-y-2 sm:space-y-3">
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md glow-hover" draggable="true" data-component="hero">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md glow-hover transition-all duration-300 ease-in-out" draggable="true" data-component="hero">
                     <div class="flex items-center mb-1">
                         <i class="fas fa-desktop mr-2 neon-text-blue"></i> 
                         <span class="text-sm sm:text-base">Hero Banner</span>
@@ -240,7 +216,7 @@
                     <p class="text-xs text-gray-400 mt-1 px-1">A prominent section for the top of your page, usually with a large image or headline.</p>
                 </div>
                 
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="features">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="features">
                      <div class="flex items-center mb-1">
                         <i class="fas fa-cogs mr-2 neon-text-pink"></i>
                         <span class="text-sm sm:text-base">Features Grid</span>
@@ -248,7 +224,7 @@
                     <p class="text-xs text-gray-400 mt-1 px-1">Showcase key features or services in a structured grid layout.</p>
                 </div>
                 
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="pricing">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="pricing">
                     <div class="flex items-center mb-1">
                         <i class="fas fa-tags mr-2 neon-text-purple"></i>
                         <span class="text-sm sm:text-base">Pricing Table</span>
@@ -256,7 +232,7 @@
                     <p class="text-xs text-gray-400 mt-1 px-1">Display your service packages or product prices in a clear, comparable format.</p>
                 </div>
                 
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="testimonials">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="testimonials">
                     <div class="flex items-center mb-1">
                         <i class="fas fa-quote-right mr-2 neon-text-blue"></i>
                         <span class="text-sm sm:text-base">Testimonials</span>
@@ -264,7 +240,7 @@
                     <p class="text-xs text-gray-400 mt-1 px-1">Share positive feedback from clients to build trust and credibility.</p>
                 </div>
                 
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="cta">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="cta">
                     <div class="flex items-center mb-1">
                         <i class="fas fa-bolt mr-2 neon-text-pink"></i>
                         <span class="text-sm sm:text-base">CTA Section</span>
@@ -273,7 +249,7 @@
                 </div>
 
                 {/* Add these new items below */}
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="services">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="services">
                     <div class="flex items-center mb-1">
                         <i class="fas fa-hands-helping mr-2 neon-text-blue"></i>
                         <span class="text-sm sm:text-base">Service List</span>
@@ -281,7 +257,7 @@
                     <p class="text-xs text-gray-400 mt-1 px-1">Detail various services offered, often with icons and brief descriptions.</p>
                 </div>
 
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md" draggable="true" data-component="contact">
+                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="contact">
                     <div class="flex items-center mb-1">
                         <i class="fas fa-envelope-open-text mr-2 neon-text-purple"></i>
                         <span class="text-sm sm:text-base">Contact Form</span>
@@ -321,7 +297,7 @@
   <div class="neon-border-blue rounded-lg overflow-hidden glow-hover transform transition-all duration-300 scanline-intensify">
         <div class="bg-black bg-opacity-80 p-4 sm:p-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
-                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-blue mb-1 sm:mb-0 animate-text-flicker-fast">BASIC HACK</h3>
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-blue mb-1 sm:mb-0">BASIC HACK</h3>
                 <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-pink">$499</span>
             </div>
             <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Entry-level package for startups</p>
@@ -362,12 +338,12 @@
             
             <!-- Pro Package -->
              <div class="neon-border-pink rounded-lg overflow-hidden glow-hover transform transition-all duration-300 relative scanline-intensify">
-        <div class="absolute -top-2 -right-2 md:-top-3 md:-right-3 bg-purple-600 text-xs font-bold px-2 py-0.5 md:px-3 md:py-1 rounded-full rotate-12 neon-text-blue animate-text-flicker-fast">
+        <div class="absolute -top-2 -right-2 md:-top-3 md:-right-3 bg-purple-600 text-xs font-bold px-2 py-0.5 md:px-3 md:py-1 rounded-full rotate-12 neon-text-blue">
             POPULAR
         </div>
         <div class="bg-black bg-opacity-80 p-4 sm:p-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
-                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-pink mb-1 sm:mb-0 animate-text-flicker-fast">PROTOCOL_UPGRADE</h3>
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-pink mb-1 sm:mb-0">PROTOCOL_UPGRADE</h3>
                 <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-purple">$1,299</span>
             </div>
             <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Advanced business package</p>
@@ -411,7 +387,7 @@
            <div class="neon-border-purple rounded-lg overflow-hidden glow-hover transform transition-all duration-300 scanline-intensify">
         <div class="bg-black bg-opacity-80 p-4 sm:p-6">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 sm:mb-4 md:mb-6">
-                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-purple mb-1 sm:mb-0 animate-text-flicker-fast">CORP_OVERRIDE</h3>
+                <h3 class="text-lg sm:text-xl md:text-2xl neon-text-purple mb-1 sm:mb-0">CORP_OVERRIDE</h3>
                 <span class="text-xl sm:text-2xl md:text-3xl font-bold neon-text-blue">$2,999+</span>
             </div>
             <p class="text-xs sm:text-sm md:text-base text-gray-400 mb-4 sm:mb-6">// Elite corporate package</p>
@@ -795,8 +771,29 @@
     previewArea.addEventListener('drop', (e) => {
         e.preventDefault();
         const componentType = e.dataTransfer.getData('text/plain');
-        previewArea.insertAdjacentHTML('beforeend', components[componentType]);
+        // OLD LINE: previewArea.insertAdjacentHTML('beforeend', components[componentType]);
+        
+        // NEW LOGIC:
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = components[componentType];
+        const newComponentElement = tempDiv.firstElementChild;
+        
+        if (newComponentElement) {
+            newComponentElement.classList.add('builder-component-appear');
+            previewArea.appendChild(newComponentElement);
+            
+            // Remove the animation class after it finishes to allow re-trigger if element is re-added (though not typical here)
+            setTimeout(() => {
+                newComponentElement.classList.remove('builder-component-appear');
+            }, 500); // Match animation duration
+        }
+        // END NEW LOGIC
+        
         previewArea.classList.remove('neon-border-pink');
+        const placeholder = previewArea.querySelector('.text-center.opacity-70');
+        if (placeholder) {
+            placeholder.style.display = 'none'; // Hide placeholder
+        }
     });
 
     // Export functionality
@@ -826,12 +823,15 @@
     // Reset functionality
     document.getElementById('resetBtn').addEventListener('click', () => {
         previewArea.innerHTML = `
-        <div class="text-center mt-16 opacity-70">
-            <p class="neon-text-blue text-lg mb-2">This is your canvas.</p>
-            <p class="text-gray-400 text-sm mb-2">Drag components from the 'COMPONENT VAULT' on the left and drop them here to build your page structure.</p>
+        <div class="text-center mt-10 sm:mt-16 opacity-70">
+            <p class="neon-text-blue text-base sm:text-lg mb-2">This is your canvas.</p>
+            <p class="text-gray-400 text-xs sm:text-sm mb-2">Drag components from the 'COMPONENT VAULT' on the left and drop them here to build your page structure.</p>
             <p class="text-gray-500 text-xs">(You can then customize the content of each dropped component.)</p>
         </div>
         `;
+        // The placeholder is already part of the innerHTML, so it will be restored.
     });
     </script>
 </body>
+
+[end of index]
