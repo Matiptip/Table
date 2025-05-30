@@ -210,7 +210,7 @@
                 NEON<span class="neon-text-blue">WEB</span>_DEV
             </a>
             <div>
-                <a href="index#neonBuilder" class="text-sm neon-text-purple hover:text-pink-400 transition-colors duration-300 mr-4">
+                <a href="index#neonBuilder" id="backToMainBtn" class="text-sm neon-text-purple hover:text-pink-400 transition-colors duration-300 mr-4">
                     <i class="fas fa-chevron-left mr-1"></i> Back to Main Page
                 </a>
                 <a href="#" id="loadProjectBtn" class="text-sm neon-text-blue hover:text-pink-400 transition-colors duration-300 mr-4">
@@ -281,12 +281,8 @@
                         </div>
                     </div>
                     
-                    <div id="previewArea" class="min-h-[40vh] md:min-h-[calc(100%-4rem)] neon-border-blue p-3 sm:p-4 bg-black bg-opacity-50 rounded-md flex-grow"> <!-- Added flex-grow -->
-                        <div class="text-center mt-10 sm:mt-16 opacity-70">
-                            <p class="neon-text-blue text-base sm:text-lg mb-2">This is your canvas.</p>
-                            <p class="text-gray-400 text-xs sm:text-sm mb-2">Drag components from the 'COMPONENT VAULT' and drop them here.</p>
-                            <p class="text-gray-500 text-xs">(You can then customize the content of each dropped component.)</p>
-                        </div>
+                    <div id="previewArea" class="min-h-[40vh] md:min-h-[calc(100%-4rem)] neon-border-blue p-3 sm:p-4 bg-black bg-opacity-50 rounded-md flex-grow"> 
+                        <!-- Initial placeholder will be set by JS -->
                     </div>
                 </div>
             </div>
@@ -294,189 +290,161 @@
     </div>
 
     <script>
-        // Button hover effects (sound)
-        const buttons = document.querySelectorAll('button, .component-item'); // Added .component-item
-        buttons.forEach(button => {
-            button.addEventListener('mouseenter', () => {
-                const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3');
-                audio.volume = 0.1; // Reduced volume
-                audio.play().catch(e => console.error("Audio play failed:", e));
-            });
-        });
-        
-        // Component templates (optimized versions of your existing sections)
+    // Component Definitions
     const components = {
         hero: `
-            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-70 relative group">
+            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-70 relative group tech-card">
                 <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h1 contenteditable="true" class="cyber-font text-3xl neon-text-pink mb-4 outline-none focus:neon-border-pink p-1">YOUR_HERO_HEADLINE</h1>
-                <p contenteditable="true" class="neon-text-blue mb-6 outline-none focus:neon-border-blue p-1">Customizable cyberpunk hero section for your main message or product showcase.</p>
-                <button contenteditable="true" class="bg-gradient-to-r from-pink-600 to-blue-600 px-6 py-2 rounded-md outline-none focus:ring-2 focus:ring-purple-500">ACTION_BUTTON</button>
+                <h1 contenteditable="true" class="orbitron-font text-3xl text-glow-primary mb-4 outline-none">YOUR_HERO_HEADLINE</h1>
+                <p contenteditable="true" class="text-lg text-light-text mb-6 outline-none">Customizable cyberpunk hero section for maximum impact.</p>
+                <button class="cyber-button-ref px-6 py-2 rounded-md"><span contenteditable="true" class="outline-none">ACTION_BUTTON</span></button>
             </section>
         `,
         pricing: `
-            <section class="my-4 relative group">
+            <section class="my-4 relative group tech-card p-6">
                 <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-pink mb-6 outline-none text-center focus:neon-border-pink p-1">PRICING_PLANS</h2>
+                <h2 contenteditable="true" class="orbitron-font text-2xl text-glow-secondary mb-6 outline-none">PRICING_MATRIX</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="neon-border-blue p-4 bg-black bg-opacity-70">
-                        <h3 contenteditable="true" class="neon-text-blue text-xl mb-2 outline-none focus:neon-border-purple p-1">BASIC_UNIT</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none focus:neon-border-purple p-1">Starting at $XXX</p>
-                        <ul contenteditable="true" class="list-disc list-inside text-gray-300 text-sm space-y-1 outline-none focus:neon-border-purple p-1"><li>Feature A</li><li>Feature B</li></ul>
+                    <div class="neon-border-blue p-4 bg-black bg-opacity-50 rounded">
+                        <h3 contenteditable="true" class="orbitron-font text-xl text-glow-primary mb-2 outline-none">Basic Tier</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none">Essential features, starting at $299.</p>
+                        <button class="cyber-button-ref cyber-button-blue w-full"><span contenteditable="true" class="outline-none">Select Plan</span></button>
                     </div>
-                    <div class="neon-border-pink p-4 bg-black bg-opacity-70">
-                        <h3 contenteditable="true" class="neon-text-pink text-xl mb-2 outline-none focus:neon-border-purple p-1">PRO_MODULE</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none focus:neon-border-purple p-1">Starting at $YYY</p>
-                        <ul contenteditable="true" class="list-disc list-inside text-gray-300 text-sm space-y-1 outline-none focus:neon-border-purple p-1"><li>Feature A+</li><li>Feature B+</li><li>Feature C</li></ul>
+                    <div class="neon-border-pink p-4 bg-black bg-opacity-50 rounded">
+                        <h3 contenteditable="true" class="orbitron-font text-xl text-glow-secondary mb-2 outline-none">Pro Tier</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none">Advanced capabilities, starting at $599.</p>
+                        <button class="cyber-button-ref cyber-button-pink w-full"><span contenteditable="true" class="outline-none">Select Plan</span></button>
                     </div>
-                    <div class="neon-border-purple p-4 bg-black bg-opacity-70">
-                        <h3 contenteditable="true" class="neon-text-purple text-xl mb-2 outline-none focus:neon-border-pink p-1">ELITE_SYSTEM</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none focus:neon-border-pink p-1">Starting at $ZZZ</p>
-                        <ul contenteditable="true" class="list-disc list-inside text-gray-300 text-sm space-y-1 outline-none focus:neon-border-pink p-1"><li>All Features</li><li>Priority Support</li></ul>
+                    <div class="neon-border-purple p-4 bg-black bg-opacity-50 rounded">
+                        <h3 contenteditable="true" class="orbitron-font text-xl text-glow-primary mb-2 outline-none">Elite Tier</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none">Full spectrum solutions, starting at $999.</p>
+                        <button class="cyber-button-ref cyber-button-purple w-full"><span contenteditable="true" class="outline-none">Select Plan</span></button>
                     </div>
                 </div>
             </section>
         `,
-
         features: `
-            <section class="neon-border-purple p-6 my-4 bg-black bg-opacity-70 relative group">
+            <section class="neon-border-purple p-6 my-4 bg-black bg-opacity-70 relative group tech-card">
                 <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-purple mb-4 outline-none text-center focus:neon-border-blue p-1">KEY_FEATURES_GRID</h2>
+                <h2 contenteditable="true" class="orbitron-font text-2xl text-glow-secondary mb-4 outline-none">NEXUS_FEATURES</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div class="neon-border-blue p-4 rounded">
-                        <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none focus:neon-border-pink p-1">Feature One</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-pink p-1">Description of feature one with a cyberpunk feel, highlighting its unique aspects.</p>
+                        <h3 contenteditable="true" class="text-xl text-glow-primary mb-2 outline-none">Synergy Core</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Dynamic processing for unparalleled efficiency.</p>
                     </div>
                     <div class="neon-border-pink p-4 rounded">
-                        <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none focus:neon-border-blue p-1">Feature Two</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-blue p-1">Description of feature two, enhanced for the digital frontier and user engagement.</p>
+                        <h3 contenteditable="true" class="text-xl text-glow-secondary mb-2 outline-none">Quantum Entanglement</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Instant data relay across any distance.</p>
                     </div>
                     <div class="neon-border-purple p-4 rounded">
-                        <h3 contenteditable="true" class="text-xl neon-text-purple mb-2 outline-none focus:neon-border-pink p-1">Feature Three</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-pink p-1">Description of feature three, straight from the neon-lit streets of innovation.</p>
+                        <h3 contenteditable="true" class="text-xl text-glow-primary mb-2 outline-none">Chrono Guard</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Temporal protection for your digital assets.</p>
                     </div>
                 </div>
             </section>
         `,
-
         testimonials: `
-            <section class="neon-border-pink p-6 my-4 bg-black bg-opacity-70 relative group">
+            <section class="neon-border-pink p-6 my-4 bg-black bg-opacity-70 relative group tech-card">
                 <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-pink mb-4 outline-none text-center focus:neon-border-purple p-1">CLIENT_ECHOES</h2>
+                <h2 contenteditable="true" class="orbitron-font text-2xl text-glow-secondary mb-4 outline-none">USER_ECHOES</h2>
                 <div class="space-y-4">
                     <div class="neon-border-blue p-4 rounded bg-opacity-50 bg-black">
-                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none focus:neon-border-pink p-1">"This service is a paradigm shift in cybernetic integration..."</p>
-                        <h4 contenteditable="true" class="neon-text-blue text-right outline-none focus:neon-border-pink p-1">- User_7C3, Nova Corp</h4>
+                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none">"The integration was seamless, performance is off the charts!"</p>
+                        <h4 contenteditable="true" class="text-glow-primary text-right outline-none">- Ghost_Op, Sector 7</h4>
                     </div>
                     <div class="neon-border-purple p-4 rounded bg-opacity-50 bg-black">
-                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none focus:neon-border-blue p-1">"My digital footprint has never been stronger. Peak performance!"</p>
-                        <h4 contenteditable="true" class="neon-text-purple text-right outline-none focus:neon-border-blue p-1">- Ghost_Rider, Sector Gamma</h4>
+                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none">"This tech reshaped our entire digital frontier. Groundbreaking!"</p>
+                        <h4 contenteditable="true" class="text-glow-secondary text-right outline-none">- Nova_Drift, Cygnus X1</h4>
                     </div>
                 </div>
             </section>
         `,
-
         cta: `
-            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-80 relative group text-center">
+            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-80 relative group text-center tech-card">
                 <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-3xl neon-text-blue mb-4 outline-none focus:neon-border-pink p-1">ENGAGE_PROTOCOL</h2>
-                <p contenteditable="true" class="neon-text-pink mb-6 text-lg outline-none focus:neon-border-pink p-1">The future awaits. Connect now to redefine your reality and unlock potential.</p>
-                <button class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg neon-text-white transition-all duration-300 ease-in-out transform hover:scale-105">
-                    <span contenteditable="true" class="outline-none focus:ring-2 focus:ring-purple-500">INITIATE_CONTACT</span> <i class="fas fa-arrow-right ml-2"></i>
+                <h2 contenteditable="true" class="orbitron-font text-3xl text-glow-primary mb-4 outline-none">INITIATE_SEQUENCE</h2>
+                <p contenteditable="true" class="text-light-text mb-6 text-lg outline-none">Your digital evolution starts now. Connect and transcend.</p>
+                <button class="cyber-button-ref cyber-button-pink px-6 py-3 rounded-md">
+                    <span contenteditable="true" class="outline-none">ENGAGE_NOW</span> <i class="fas fa-arrow-right ml-2"></i>
                 </button>
             </section>
         `,
-
         services: `
-            <section class="neon-border-green p-6 my-4 bg-black bg-opacity-70 relative group">
+            <section class="neon-border-green p-6 my-4 bg-black bg-opacity-70 relative group tech-card">
                 <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-green mb-6 outline-none text-center focus:neon-border-blue p-1">OUR_SERVICES_MATRIX</h2>
+                <h2 contenteditable="true" class="orbitron-font text-2xl neon-text-green text-glow-primary mb-6 outline-none text-center">SERVICE_GRID_ALPHA</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="flex items-start p-4 neon-border-blue rounded">
                         <i class="fas fa-cogs neon-text-blue text-2xl mr-4 mt-1"></i>
                         <div>
-                            <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none focus:neon-border-pink p-1">Service Array One</h3>
-                            <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-pink p-1">Description of the first service array, deployable on demand for various solutions.</p>
+                            <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none">System Optimization</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Peak performance tuning for all cybernetic systems.</p>
                         </div>
                     </div>
                     <div class="flex items-start p-4 neon-border-pink rounded">
                         <i class="fas fa-shield-alt neon-text-pink text-2xl mr-4 mt-1"></i>
                         <div>
-                            <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none focus:neon-border-blue p-1">Service Array Two</h3>
-                            <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-blue p-1">Secure and robust second service array, designed for critical operational integrity.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start p-4 neon-border-purple rounded">
-                        <i class="fas fa-microchip neon-text-purple text-2xl mr-4 mt-1"></i>
-                        <div>
-                            <h3 contenteditable="true" class="text-xl neon-text-purple mb-2 outline-none focus:neon-border-pink p-1">Service Array Three</h3>
-                            <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-pink p-1">Advanced micro-processing service array, for cutting-edge technological solutions.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start p-4 neon-border-green rounded">
-                        <i class="fas fa-network-wired neon-text-green text-2xl mr-4 mt-1"></i>
-                        <div>
-                            <h3 contenteditable="true" class="text-xl neon-text-green mb-2 outline-none focus:neon-border-blue p-1">Service Array Four</h3>
-                            <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-blue p-1">Interlinked network service array, engineered for maximum connectivity and data flow.</p>
+                            <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none">Data Fortress</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Unbreachable security for your valuable information.</p>
                         </div>
                     </div>
                 </div>
             </section>
         `,
-
         contact: `
-            <section class="neon-border-yellow p-6 my-4 bg-black bg-opacity-70 relative group">
+            <section class="neon-border-yellow p-6 my-4 bg-black bg-opacity-70 relative group tech-card">
                 <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-yellow mb-6 outline-none text-center focus:neon-border-pink p-1">ESTABLISH_CONTACT_LINK</h2>
+                <h2 contenteditable="true" class="orbitron-font text-2xl neon-text-yellow text-glow-secondary mb-6 outline-none text-center">CONTACT_RELAY</h2>
                 <div class="max-w-lg mx-auto">
                     <div class="mb-4">
-                        <label contenteditable="true" for="cyber_callsign" class="block neon-text-blue text-sm font-bold mb-2 outline-none focus:neon-border-purple p-1">Your Callsign (ID):</label>
-                        <input type="text" id="cyber_callsign" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-blue text-gray-300 focus:outline-none focus:border-neon-pink" placeholder="e.g., Ghost_Decoder_77">
+                        <label contenteditable="true" for="cyber_callsign" class="block neon-text-blue text-sm font-bold mb-2 outline-none">Your Callsign:</label>
+                        <input type="text" id="cyber_callsign" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-blue text-gray-300 focus:outline-none focus:border-neon-pink" placeholder="e.g., NeonRiderX">
                     </div>
                     <div class="mb-4">
-                        <label contenteditable="true" for="cyber_message_packet" class="block neon-text-pink text-sm font-bold mb-2 outline-none focus:neon-border-purple p-1">Message Packet:</label>
-                        <textarea id="cyber_message_packet" rows="4" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-pink text-gray-300 focus:outline-none focus:border-neon-purple" placeholder="Encode your query here... detail your project needs or inquiry."></textarea>
+                        <label contenteditable="true" for="cyber_message_packet" class="block neon-text-pink text-sm font-bold mb-2 outline-none">Secure Message:</label>
+                        <textarea id="cyber_message_packet" rows="4" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-pink text-gray-300 focus:outline-none focus:border-neon-purple" placeholder="Initiate secure transmission..."></textarea>
                     </div>
                     <div class="text-center">
-                        <button class="bg-gradient-to-r from-yellow-500 via-red-500 to-pink-600 hover:from-yellow-400 text-white font-bold py-2 px-6 rounded-lg shadow-md neon-text-black transition-all duration-300 ease-in-out transform hover:scale-105">
-                            <span contenteditable="true" class="outline-none focus:ring-2 focus:ring-purple-500">TRANSMIT_PACKET</span> <i class="fas fa-paper-plane ml-2"></i>
+                        <button class="cyber-button-ref cyber-button-yellow px-6 py-3 rounded-md">
+                            <span contenteditable="true" class="outline-none">SEND_PACKET</span> <i class="fas fa-paper-plane ml-2"></i>
                         </button>
                     </div>
                 </div>
-                <style>
-                    /* Styles moved to main style block for better organization */
+                <style> /* Scoped styles for contact form inputs, if not globally defined */
                     .neon-input::placeholder { color: #555; }
                     .neon-input:focus { box-shadow: 0 0 8px var(--neon-purple); }
-                    /* .neon-text-yellow, .neon-border-yellow, .neon-text-green, .neon-border-green are now global */
-                    /* Ensure contenteditable focus outlines are subtle or match theme */
-                    [contenteditable]:focus {
-                        outline: 1px dashed var(--neon-blue);
-                        box-shadow: 0 0 5px var(--neon-blue);
-                    }
                 </style>
             </section>
         `
     };
 
     const previewArea = document.getElementById('previewArea');
-    const componentItems = document.querySelectorAll('.component-item');
-    const initialPlaceholder = previewArea.innerHTML; // Store initial placeholder
+    const initialPlaceholder = `
+        <div class="text-center mt-10 sm:mt-16 opacity-70">
+            <p class="orbitron-font text-glow-primary text-base sm:text-lg mb-2">This is your canvas.</p>
+            <p class="text-gray-400 text-xs sm:text-sm mb-2">Drag components from the 'COMPONENT VAULT' and drop them here to build your page structure.</p>
+            <p class="text-gray-500 text-xs">(You can then customize the content of each dropped component.)</p>
+        </div>
+    `;
+    previewArea.innerHTML = initialPlaceholder; // Set initial placeholder
 
-    componentItems.forEach(item => {
+    // Drag and drop implementation
+    document.querySelectorAll('.component-item').forEach(item => {
         item.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', e.target.dataset.component);
-            // Optional: Add a class to the dragged item for visual feedback
-            e.target.classList.add('opacity-50', 'border-dashed');
+            e.target.classList.add('opacity-50', 'border-dashed'); // Visual feedback
+            const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-interface-select-2535.mp3'); // Drag start sound
+            sound.volume = 0.3;
+            sound.play();
         });
         item.addEventListener('dragend', (e) => {
-            // Optional: Remove the visual feedback class
-            e.target.classList.remove('opacity-50', 'border-dashed');
+            e.target.classList.remove('opacity-50', 'border-dashed'); // Clear visual feedback
         });
     });
-    
+
     previewArea.addEventListener('dragover', (e) => {
-        e.preventDefault(); // Necessary to allow dropping
-        previewArea.classList.add('neon-border-pink', 'bg-opacity-60'); // Visual feedback
+        e.preventDefault();
+        previewArea.classList.add('neon-border-pink', 'bg-opacity-60'); // Visual feedback for drop target
         previewArea.classList.remove('neon-border-blue');
     });
 
@@ -488,7 +456,6 @@
     previewArea.addEventListener('drop', (e) => {
         e.preventDefault();
         const componentType = e.dataTransfer.getData('text/plain');
-        
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = components[componentType];
         const newComponentElement = tempDiv.firstElementChild;
@@ -496,63 +463,115 @@
         if (newComponentElement) {
             newComponentElement.classList.add('builder-component-appear');
             
-            // If it's the first element, clear placeholder
-            if (previewArea.innerHTML.trim() === initialPlaceholder.trim()) {
-                previewArea.innerHTML = '';
+            const placeholderDiv = previewArea.querySelector('.text-center.opacity-70');
+            if (placeholderDiv && placeholderDiv.parentElement === previewArea) { // Check if it's a direct child
+                previewArea.innerHTML = ''; // Clear placeholder ONLY if it's the main content
             }
             previewArea.appendChild(newComponentElement);
             
             setTimeout(() => {
-                newComponentElement.classList.remove('builder-component-appear');
+                if (newComponentElement.parentNode === previewArea) {
+                    newComponentElement.classList.remove('builder-component-appear');
+                }
             }, 500);
+
+            const dropSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-fast-sweep-transition-23sweep-transition-236 sweep-transition-2369.mp3'); // Drop sound
+            dropSound.volume = 0.4;
+            dropSound.play();
+
+            // Add focus styling to contenteditable elements
+            newComponentElement.querySelectorAll('[contenteditable="true"]').forEach(editable => {
+                editable.addEventListener('focus', () => {
+                    editable.style.outline = '1px dashed var(--neon-pink)';
+                    editable.style.boxShadow = '0 0 10px var(--neon-pink)';
+                });
+                editable.addEventListener('blur', () => {
+                    editable.style.outline = 'none';
+                    editable.style.boxShadow = 'none';
+                });
+            });
+
+        } else {
+            console.error("Failed to create component: newComponentElement is null for type", componentType);
         }
         
         previewArea.classList.remove('neon-border-pink', 'bg-opacity-60');
         previewArea.classList.add('neon-border-blue');
-
-        const placeholderDiv = previewArea.querySelector('.text-center.opacity-70');
-        if(placeholderDiv && previewArea.children.length > 1) { // if placeholder exists and there's more than just it
-            placeholderDiv.style.display = 'none';
-        }
     });
 
+    // Export functionality
     document.getElementById('exportBtn').addEventListener('click', () => {
-        // Temporarily remove contenteditable attributes and focus outlines for export
         const clonedPreview = previewArea.cloneNode(true);
-        clonedPreview.querySelectorAll('[contenteditable="true"]').forEach(el => {
-            el.removeAttribute('contenteditable');
-            el.classList.remove('focus:neon-border-pink', 'focus:neon-border-blue', 'focus:neon-border-purple', 'p-1'); // Remove focus helper classes
-            // Remove any specific focus outline styles if added directly
-            el.style.outline = '';
-            el.style.boxShadow = '';
-        });
-        // Remove delete buttons
-        clonedPreview.querySelectorAll('.group > button').forEach(btn => btn.remove());
+        // Remove contenteditable attributes and delete buttons for export
+        clonedPreview.querySelectorAll('[contenteditable="true"]').forEach(el => el.removeAttribute('contenteditable'));
+        clonedPreview.querySelectorAll('button[onclick*="this.parentElement.remove()"]').forEach(btn => btn.remove());
+        // Optional: Remove builder-specific classes if any from clonedPreview elements
 
-
-        const cssStyles = document.querySelector('style').innerHTML;
         const finalHtml = `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Your Cyberpunk Page</title>
-                <script src="https://cdn.tailwindcss.com"></script>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-                <style>
-                    ${cssStyles}
-                    /* Hide contenteditable focus outlines in exported file */
-                    [contenteditable]:focus { outline: none; box-shadow: none; }
-                </style>
-            </head>
-            <body class="grid-pattern-animated scanline bg-dark-bg text-white">
-                <div class="container mx-auto px-4 py-8">
-                    ${clonedPreview.innerHTML}
-                </div>
-            </body>
-            </html>
-        `;
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Exported Cyberpunk Page</title>
+        <script src="https://cdn.tailwindcss.com"><\/script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
+            :root {
+                --neon-pink: #ff2a6d; --neon-blue: #05d9e8; --neon-purple: #d300c5;
+                --dark-bg: #0a0a14; --light-text: #f0f0ff;
+                --primary-glow: var(--neon-blue); --secondary-glow: var(--neon-pink);
+                --neon-green: #39ff14; --neon-yellow: #f3ca20; /* Added green/yellow */
+            }
+            body { font-family: 'Space Grotesk', sans-serif; background-color: var(--dark-bg); color: var(--light-text); margin: 0; padding: 0; }
+            .orbitron-font { font-family: 'Orbitron', sans-serif; }
+            .cyber-font { font-family: 'Press Start 2P', cursive; }
+            .text-glow-primary { text-shadow: 0 0 8px var(--primary-glow), 0 0 15px var(--primary-glow); }
+            .text-glow-secondary { text-shadow: 0 0 8px var(--secondary-glow), 0 0 15px var(--secondary-glow); }
+            .neon-text-pink { color: var(--neon-pink); } .neon-text-blue { color: var(--neon-blue); }
+            .neon-text-purple { color: var(--neon-purple); } .neon-text-green { color: var(--neon-green); } .neon-text-yellow { color: var(--neon-yellow); }
+            .neon-border-pink { border: 1px solid var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
+            .neon-border-blue { border: 1px solid var(--neon-blue); box-shadow: 0 0 8px var(--neon-blue); }
+            .neon-border-purple { border: 1px solid var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
+            .neon-border-green { border: 1px solid var(--neon-green); box-shadow: 0 0 8px var(--neon-green); }
+            .neon-border-yellow { border: 1px solid var(--neon-yellow); box-shadow: 0 0 8px var(--neon-yellow); }
+            .tech-card { position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(20, 20, 30, 0.6); backdrop-filter: blur(8px); margin-top: 1rem; margin-bottom: 1rem; padding: 1.5rem; border-radius: 0.5rem; }
+            .cyber-button-ref { position: relative; overflow: hidden; border: 1px solid var(--primary-glow); background: transparent; color: var(--primary-glow) !important; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; padding: 0.75rem 1.5rem; transition: all 0.3s ease; box-shadow: 0 0 8px var(--primary-glow); border-radius: 0.375rem; display: inline-flex; align-items: center; }
+            .cyber-button-ref:hover { color: var(--dark-bg) !important; background: var(--primary-glow); box-shadow: 0 0 15px var(--primary-glow), 0 0 30px var(--primary-glow); }
+            .cyber-button-ref::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0,0,0, 0.2), transparent); transition: left 0.5s ease; }
+            .cyber-button-ref:hover::before { left: 100%; }
+            .cyber-button-pink { border-color: var(--neon-pink); color: var(--neon-pink) !important; box-shadow: 0 0 8px var(--neon-pink); }
+            .cyber-button-pink:hover { background: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink); }
+            .cyber-button-purple { border-color: var(--neon-purple); color: var(--neon-purple) !important; box-shadow: 0 0 8px var(--neon-purple); }
+            .cyber-button-purple:hover { background: var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple), 0 0 30px var(--neon-purple); }
+            .cyber-button-yellow { border-color: var(--neon-yellow); color: var(--neon-yellow) !important; box-shadow: 0 0 8px var(--neon-yellow); }
+            .cyber-button-yellow:hover { background: var(--neon-yellow); box-shadow: 0 0 15px var(--neon-yellow), 0 0 30px var(--neon-yellow); }
+            .neon-input::placeholder { color: #555; } .neon-input:focus { box-shadow: 0 0 8px var(--neon-purple); }
+            /* Ensure Tailwind utility classes like grid, gap, etc., are effective */
+            /* It's better to link to an external stylesheet that has all utilities */
+            /* For simplicity, key layout styles from components are inlined or generalized here */
+            .grid { display: grid; } .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } /* Example for md */
+            .gap-4 { gap: 1rem; } .p-4 { padding: 1rem; } .p-6 { padding: 1.5rem; } .p-8 { padding: 2rem; }
+            .my-4 { margin-top: 1rem; margin-bottom: 1rem; } .mb-2 { margin-bottom: 0.5rem; } .mb-4 { margin-bottom: 1rem; } .mb-6 { margin-bottom: 1.5rem; }
+            .text-center { text-align: center; } .text-right { text-align: right; } .outline-none { outline: none; }
+            .rounded { border-radius: 0.375rem; } .bg-black { background-color: #000; } .bg-opacity-50 { --tw-bg-opacity: 0.5; }
+            .bg-opacity-70 { --tw-bg-opacity: 0.7; } .bg-opacity-80 { --tw-bg-opacity: 0.8; }
+            .text-gray-300 { color: #d1d5db; } .text-gray-400 { color: #9ca3af; } .text-lg { font-size: 1.125rem; }
+            .text-xl { font-size: 1.25rem; } .text-2xl { font-size: 1.5rem; } .text-3xl { font-size: 1.875rem; }
+            .text-sm { font-size: 0.875rem; } .italic { font-style: italic; } .font-bold { font-weight: 700; }
+            .relative { position: relative; } .absolute { position: absolute; }
+            /* Add more essential Tailwind classes or a full Tailwind build if needed */
+        <\/style>
+    </head>
+    <body>
+        <div class="container mx-auto p-4"> <!-- Basic container for exported content -->
+            ${clonedPreview.innerHTML}
+        </div>
+    </body>
+    </html>
+    `;
         const blob = new Blob([finalHtml.trim()], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -565,32 +584,76 @@
     });
 
     document.getElementById('resetBtn').addEventListener('click', () => {
-        previewArea.innerHTML = initialPlaceholder; // Restore initial placeholder
+        previewArea.innerHTML = initialPlaceholder;
+        const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-short-electric-glitch-2 electric-glitch-2730.mp3'); // Reset sound
+        sound.volume = 0.3;
+        sound.play();
     });
 
-    // Save and Load Project (Basic LocalStorage Implementation)
+    // Save and Load Project
     const saveProjectBtn = document.getElementById('saveProjectBtn');
     const loadProjectBtn = document.getElementById('loadProjectBtn');
 
-    saveProjectBtn.addEventListener('click', () => {
-        const projectData = previewArea.innerHTML;
-        localStorage.setItem('neonBuilderProject', projectData);
-        alert('Project saved to browser local storage!');
-    });
+    if (saveProjectBtn && loadProjectBtn) { // Check if buttons exist
+        saveProjectBtn.addEventListener('click', () => {
+            const projectData = previewArea.innerHTML;
+            localStorage.setItem('neonBuilderProject', projectData);
+            alert('Project saved to browser local storage!');
+            const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-game-flashing-promo-2 flashing-promo-20 flashing-promo-2003.mp3'); // Save sound
+            sound.volume = 0.3;
+            sound.play();
+        });
 
-    loadProjectBtn.addEventListener('click', () => {
-        const savedProjectData = localStorage.getItem('neonBuilderProject');
-        if (savedProjectData) {
-            previewArea.innerHTML = savedProjectData;
-            const placeholderDiv = previewArea.querySelector('.text-center.opacity-70');
-             if(placeholderDiv && previewArea.children.length > 1) {
-                placeholderDiv.style.display = 'none';
+        loadProjectBtn.addEventListener('click', () => {
+            const savedProjectData = localStorage.getItem('neonBuilderProject');
+            if (savedProjectData) {
+                previewArea.innerHTML = savedProjectData;
+                const placeholderDiv = previewArea.querySelector('.text-center.opacity-70');
+                if(placeholderDiv && previewArea.children.length > 1 && previewArea.firstChild !== placeholderDiv) {
+                     placeholderDiv.style.display = 'none';
+                } else if (placeholderDiv && previewArea.children.length === 1 && previewArea.firstChild === placeholderDiv) {
+                    placeholderDiv.style.display = 'block'; // Or your default display style
+                }
+                // Re-attach focus listeners to newly loaded contenteditable elements
+                previewArea.querySelectorAll('[contenteditable="true"]').forEach(editable => {
+                    editable.addEventListener('focus', () => {
+                        editable.style.outline = '1px dashed var(--neon-pink)';
+                        editable.style.boxShadow = '0 0 10px var(--neon-pink)';
+                    });
+                    editable.addEventListener('blur', () => {
+                        editable.style.outline = 'none';
+                        editable.style.boxShadow = 'none';
+                    });
+                });
+                alert('Project loaded from browser local storage!');
+                const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-confirmation-tone-2867.mp3'); // Load sound
+                sound.volume = 0.3;
+                sound.play();
+
+            } else {
+                alert('No saved project found.');
             }
-        } else {
-            alert('No saved project found.');
+        });
+    }
+
+    // Nav button sounds (if they exist)
+    ['backToMainBtn', 'saveProjectBtn', 'loadProjectBtn'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('mouseenter', () => {
+                const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-modern-technology-select-3022.mp3');
+                audio.volume = 0.2;
+                audio.play();
+            });
         }
     });
-
+    // Initial placeholder check
+    if (previewArea.innerHTML.trim() === initialPlaceholder.trim()) {
+        // It's the placeholder, do nothing or ensure it's styled as placeholder
+    } else if (previewArea.children.length > 0) {
+        const placeholderDiv = previewArea.querySelector('.text-center.opacity-70');
+        if(placeholderDiv) placeholderDiv.style.display = 'none';
+    }
     </script>
 </body>
 </html>
