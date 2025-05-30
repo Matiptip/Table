@@ -182,6 +182,36 @@
         .builder-component-appear {
             animation: fadeInSlideUp 0.5s ease-out forwards;
         }
+
+        /* Animations for Builder Placeholder Icons */
+        @keyframes moveMouseToPointer {
+            0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+            25% { transform: translateX(-5px) translateY(-5px) scale(1.1); } /* Move towards dots */
+            50% { transform: translateX(10px) translateY(0) scale(1); } /* Move past dots towards component */
+            75% { transform: translateX(5px) translateY(0) scale(1.1) rotate(-10deg); } /* 'Grab' component */
+        }
+
+        @keyframes moveComponentSlightly {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(5px) translateY(-5px) scale(1.05); } /* Component lifts and moves */
+            75% { transform: translateX(0px) translateY(0px) scale(1); } /* Component settles briefly */
+        }
+
+        .ph-mouse {
+            animation: moveMouseToPointer 4s ease-in-out infinite;
+            display: inline-block; /* Allow transform */
+        }
+
+        .ph-component-icon {
+            animation: moveComponentSlightly 4s ease-in-out infinite;
+            animation-delay: 0.5s; /* Stagger from mouse */
+            display: inline-block; /* Allow transform */
+        }
+
+        .ph-dots {
+            display: inline-block;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body class="grid-pattern-animated scanline">
@@ -196,101 +226,46 @@
                 <p class="text-gray-300 text-sm sm:text-base">// Our services are optimized for speed, security, and that unmistakable neon glow.</p>
             </div>
         </header>
-        <section id="neonBuilder" class="container mx-auto px-2 sm:px-4 py-10 md:py-12">
-    <div class="text-center mb-10 md:mb-12">
-        <h2 class="cyber-font text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6 neon-text-purple">NEON_<span class="neon-text-blue animate-text-flicker-fast">BUILDER</span></h2>
-        <p class="text-base sm:text-lg neon-text-blue terminal-cursor">>_ Drag & drop to prototype your cyberpage</p>
-    </div>
-
-    <div class="builder-container flex flex-col md:flex-row" style="min-height: 60vh; max-height: 80vh;">
-        <!-- Component Palette -->
-        <div class="component-palette scanline scanline-intensify p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[35vh] md:max-h-[65vh] rounded-lg border neon-border-purple md:border-none">
-            <h3 class="neon-text-pink text-lg sm:text-xl mb-3 sm:mb-4 border-b border-neon-blue pb-2 animate-text-glitch">COMPONENT VAULT</h3>
-            
-            <div class="space-y-2 sm:space-y-3">
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md glow-hover transition-all duration-300 ease-in-out" draggable="true" data-component="hero">
-                    <div class="flex items-center mb-1">
-                        <i class="fas fa-desktop mr-2 neon-text-blue"></i> 
-                        <span class="text-sm sm:text-base">Hero Banner</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1 px-1">A prominent section for the top of your page, usually with a large image or headline.</p>
+        <!-- Placeholder for Neon Builder Link -->
+        <section id="builderLinkPlaceholder" class="container mx-auto px-4 py-16 my-12 text-center">
+            <div class="max-w-3xl mx-auto neon-border-purple p-6 sm:p-8 rounded-lg bg-black bg-opacity-70 backdrop-blur-sm scanline">
+                <h2 class="orbitron-font text-3xl sm:text-4xl mb-6 text-glow-secondary">
+                    Craft Your Cyberpunk Page
+                </h2>
+                
+                <!-- Animation/Image Placeholder -->
+                <div class="mb-8 h-48 sm:h-64 flex items-center justify-center neon-border-blue rounded bg-black bg-opacity-50 p-4">
+                    <p class="text-lg text-gray-400 orbitron-font">
+                        How it works:
+                        <br>
+                        <span class="ph-mouse">
+                            <i class="fas fa-mouse-pointer fa-2x neon-text-blue mr-2"></i>
+                        </span>
+                        <span class="ph-dots">
+                            <i class="fas fa-ellipsis-h fa-2x text-gray-500 mr-2"></i>
+                        </span>
+                        <span class="ph-component-icon">
+                            <i class="fas fa-th-large fa-2x neon-text-pink"></i>
+                        </span>
+                        <br>
+                        <span class="text-sm mt-2 block">(Drag items from the vault to your canvas!)</span>
+                    </p>
+                    <!-- TODO: Replace with an actual GIF or simple CSS animation later if desired -->
                 </div>
                 
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="features">
-                     <div class="flex items-center mb-1">
-                        <i class="fas fa-cogs mr-2 neon-text-pink"></i>
-                        <span class="text-sm sm:text-base">Features Grid</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1 px-1">Showcase key features or services in a structured grid layout.</p>
-                </div>
+                <p class="text-lg text-gray-300 mb-4 leading-relaxed">
+                    Unleash your creativity with our intuitive page builder. Drag and drop components to design your unique cyberpunk-themed website.
+                </p>
+                <p class="text-md text-gray-400 mb-8">
+                    Simply select elements from the "Component Vault" and arrange them on your canvas in the dedicated builder interface.
+                </p>
                 
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="pricing">
-                    <div class="flex items-center mb-1">
-                        <i class="fas fa-tags mr-2 neon-text-purple"></i>
-                        <span class="text-sm sm:text-base">Pricing Table</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1 px-1">Display your service packages or product prices in a clear, comparable format.</p>
-                </div>
-                
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="testimonials">
-                    <div class="flex items-center mb-1">
-                        <i class="fas fa-quote-right mr-2 neon-text-blue"></i>
-                        <span class="text-sm sm:text-base">Testimonials</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1 px-1">Share positive feedback from clients to build trust and credibility.</p>
-                </div>
-                
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="cta">
-                    <div class="flex items-center mb-1">
-                        <i class="fas fa-bolt mr-2 neon-text-pink"></i>
-                        <span class="text-sm sm:text-base">CTA Section</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1 px-1">A Call-to-Action to encourage users to take the next step (e.g., contact, sign up).</p>
-                </div>
-
-                {/* Add these new items below */}
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="services">
-                    <div class="flex items-center mb-1">
-                        <i class="fas fa-hands-helping mr-2 neon-text-blue"></i>
-                        <span class="text-sm sm:text-base">Service List</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1 px-1">Detail various services offered, often with icons and brief descriptions.</p>
-                </div>
-
-                <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out" draggable="true" data-component="contact">
-                    <div class="flex items-center mb-1">
-                        <i class="fas fa-envelope-open-text mr-2 neon-text-purple"></i>
-                        <span class="text-sm sm:text-base">Contact Form</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mt-1 px-1">A placeholder for users to get in touch. (Stylized, non-functional form).</p>
-                </div>
+                <a href="Builder.html" 
+                   class="cyber-button-ref cyber-button-pink px-8 py-4 text-lg rounded-md font-bold transition-all duration-300 ease-in-out inline-flex items-center transform hover:scale-105">
+                    <i class="fas fa-tools mr-3"></i> Launch Page Builder
+                </a>
             </div>
-        </div>
-        
-        <!-- Workspace -->
-        <div class="workspace grid-pattern p-3 sm:p-4 flex-1 md:flex-1 overflow-y-auto rounded-lg border neon-border-blue">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-3 sm:mb-4">
-                <h3 class="neon-text-blue text-lg sm:text-xl mb-2 sm:mb-0">YOUR PROTOTYPE</h3>
-                <div class="space-x-2 sm:space-x-3">
-                    <button id="resetBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-red-900 hover:bg-red-700 rounded animate-pulse-glow-strong neon-pink-glow">
-                        <i class="fas fa-trash mr-1"></i> Reset
-                    </button>
-                    <button id="exportBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gradient-to-r from-blue-600 to-purple-600 rounded animate-pulse-glow-strong neon-purple-glow">
-                        <i class="fas fa-code mr-1"></i> Export
-                    </button>
-                </div>
-            </div>
-            
-            <div id="previewArea" class="min-h-[40vh] md:min-h-[calc(100%-4rem)] neon-border-blue p-3 sm:p-4 bg-black bg-opacity-50 rounded-md">
-                <div class="text-center mt-10 sm:mt-16 opacity-70">
-            <p class="neon-text-blue text-base sm:text-lg mb-2">This is your canvas.</p>
-            <p class="text-gray-400 text-xs sm:text-sm mb-2">Drag components from the 'COMPONENT VAULT' on the left and drop them here to build your page structure.</p>
-            <p class="text-gray-500 text-xs">(You can then customize the content of each dropped component.)</p>
-        </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
         <!-- Price Table -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
             <!-- Basic Package - Updated with responsive classes -->
@@ -543,294 +518,69 @@
         const terminal = document.getElementById('terminal-content');
         
         function addTerminalLine() {
-            if (currentLine < terminalLines.length) {
+            if (terminal && currentLine < terminalLines.length) { // Added check for terminal existence
                 terminal.innerHTML += terminalLines[currentLine] + '<br>';
                 currentLine++;
                 terminal.scrollTop = terminal.scrollHeight;
-            } else {
+            } else if (terminal) { // Added check for terminal existence
                 currentLine = 0;
                 terminal.innerHTML = '> ' + terminalLines[currentLine] + '<br>';
                 currentLine++;
             }
-            
-            setTimeout(addTerminalLine, 3000);
+            // If terminal doesn't exist, this function will simply not reschedule itself.
+            if (terminal) setTimeout(addTerminalLine, 3000);
         }
         
-        // Start the terminal animation
-        setTimeout(addTerminalLine, 2000);
+        // Start the terminal animation if terminal element exists
+        if (document.getElementById('terminal-content')) {
+            setTimeout(addTerminalLine, 2000);
+        }
         
         // Button hover effects
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => {
+        // Adjusted to querySelectorAll for elements present on this page specifically.
+        // The link to Builder.html and price card buttons are the main interactive elements left.
+        const pageButtons = document.querySelectorAll('button, a.cyber-button-ref'); 
+        pageButtons.forEach(button => {
             button.addEventListener('mouseenter', () => {
                 const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3');
                 audio.volume = 0.2;
-                audio.play();
+                audio.play().catch(e => console.error("Audio play failed:", e));
             });
         });
         
         // Add scanline effect to price cards on hover
-        const priceCards = document.querySelectorAll('.glow-hover');
+        const priceCards = document.querySelectorAll('.glow-hover'); // This selector is still relevant for price cards
         priceCards.forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.classList.add('scanline');
                 const colors = ['neon-border-blue', 'neon-border-pink', 'neon-border-purple'];
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
                 
-                // Remove all glow classes first
                 this.classList.remove('neon-border-blue', 'neon-border-pink', 'neon-border-purple');
-                
-                // Add random glow class
                 this.classList.add(randomColor);
 
-                    // NEW: Add pulse animation class for border
-                    const glowColors = {
-                        'neon-border-blue': 'neon-blue-glow',
-                        'neon-border-pink': 'neon-pink-glow',
-                        'neon-border-purple': 'neon-purple-glow'
-                    };
-                    if (glowColors[randomColor]) {
-                        this.classList.add('animate-pulse-glow-strong', glowColors[randomColor]);
-                    }
+                const glowColors = {
+                    'neon-border-blue': 'neon-blue-glow',
+                    'neon-border-pink': 'neon-pink-glow',
+                    'neon-border-purple': 'neon-purple-glow'
+                };
+                if (glowColors[randomColor]) {
+                    this.classList.add('animate-pulse-glow-strong', glowColors[randomColor]);
+                }
             });
             
             card.addEventListener('mouseleave', function() {
                 this.classList.remove('scanline');
-                    // NEW: Remove pulse animation classes
-                    this.classList.remove('animate-pulse-glow-strong', 'neon-blue-glow', 'neon-pink-glow', 'neon-purple-glow');
-                    // Optional: Restore original border color if needed, or let it be removed by the randomizer logic on next mouseenter
+                this.classList.remove('animate-pulse-glow-strong', 'neon-blue-glow', 'neon-pink-glow', 'neon-purple-glow');
             });
         });
-          function contactWhatsApp(planName) {
-        const phoneNumber = '5491135203319';
-        const message = `Hello NeonWeb Dev! I'm interested in the ${planName} plan. Can you provide more information?`;
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
-    }
-        // Component templates (optimized versions of your existing sections)
-    const components = {
-        hero: `
-            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-70 relative group">
-                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h1 contenteditable="true" class="cyber-font text-3xl neon-text-pink mb-4 outline-none">YOUR_HERO_HEADLINE</h1>
-                <p contenteditable="true" class="neon-text-blue mb-6 outline-none">Customizable cyberpunk hero section</p>
-                <button class="bg-gradient-to-r from-pink-600 to-blue-600 px-6 py-2 rounded-md">ACTION_BUTTON</button>
-            </section>
-        `,
-        pricing: `
-            <section class="my-4 relative group">
-                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-pink mb-6 outline-none">PRICING_TABLE</h2>
-                <!-- Simplified version of your pricing table -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="neon-border-blue p-4 bg-black bg-opacity-70">
-                        <h3 contenteditable="true" class="neon-text-blue text-xl mb-2 outline-none">BASIC</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none">Starting at $499</p>
-                    </div>
-                    <!-- More pricing columns can be added here by the user later if needed -->
-                </div>
-            </section>
-        `,
 
-        features: `
-            <section class="neon-border-purple p-6 my-4 bg-black bg-opacity-70 relative group">
-                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-purple mb-4 outline-none">KEY_FEATURES_GRID</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="neon-border-blue p-4 rounded">
-                        <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none">Feature One</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Description of feature one with a cyberpunk feel.</p>
-                    </div>
-                    <div class="neon-border-pink p-4 rounded">
-                        <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none">Feature Two</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Description of feature two, enhanced for the digital frontier.</p>
-                    </div>
-                    <div class="neon-border-purple p-4 rounded">
-                        <h3 contenteditable="true" class="text-xl neon-text-purple mb-2 outline-none">Feature Three</h3>
-                        <p contenteditable="true" class="text-gray-400 text-sm outline-none">Description of feature three, straight from the neon-lit streets.</p>
-                    </div>
-                </div>
-            </section>
-        `,
-
-        testimonials: `
-            <section class="neon-border-pink p-6 my-4 bg-black bg-opacity-70 relative group">
-                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-pink mb-4 outline-none">CLIENT_ECHOES</h2>
-                <div class="space-y-4">
-                    <div class="neon-border-blue p-4 rounded bg-opacity-50 bg-black">
-                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none">"This service is a paradigm shift in cybernetic integration..."</p>
-                        <h4 contenteditable="true" class="neon-text-blue text-right outline-none">- User_7C3, Nova Corp</h4>
-                    </div>
-                    <div class="neon-border-purple p-4 rounded bg-opacity-50 bg-black">
-                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none">"My digital footprint has never been stronger. Peak performance!"</p>
-                        <h4 contenteditable="true" class="neon-text-purple text-right outline-none">- Ghost_Rider, Sector Gamma</h4>
-                    </div>
-                </div>
-            </section>
-        `,
-
-        cta: `
-            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-80 relative group text-center">
-                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-3xl neon-text-blue mb-4 outline-none">ENGAGE_PROTOCOL</h2>
-                <p contenteditable="true" class="neon-text-pink mb-6 text-lg outline-none">The future awaits. Connect now to redefine your reality.</p>
-                <button class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg neon-text-blue transition-all duration-300 ease-in-out transform hover:scale-105">
-                    <span contenteditable="true" class="outline-none">INITIATE_CONTACT</span> <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-            </section>
-        `,
-
-        services: `
-            <section class="neon-border-green p-6 my-4 bg-black bg-opacity-70 relative group">
-                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-green mb-6 outline-none text-center">OUR_SERVICES_MATRIX</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="flex items-start p-4 neon-border-blue rounded">
-                        <i class="fas fa-cogs neon-text-blue text-2xl mr-4 mt-1"></i>
-                        <div>
-                            <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none">Service Array One</h3>
-                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Description of the first service array, deployable on demand.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start p-4 neon-border-pink rounded">
-                        <i class="fas fa-shield-alt neon-text-pink text-2xl mr-4 mt-1"></i>
-                        <div>
-                            <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none">Service Array Two</h3>
-                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Secure and robust second service array, for critical operations.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start p-4 neon-border-purple rounded">
-                        <i class="fas fa-microchip neon-text-purple text-2xl mr-4 mt-1"></i>
-                        <div>
-                            <h3 contenteditable="true" class="text-xl neon-text-purple mb-2 outline-none">Service Array Three</h3>
-                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Advanced micro-processing service array, cutting edge solutions.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start p-4 neon-border-green rounded">
-                        <i class="fas fa-network-wired neon-text-green text-2xl mr-4 mt-1"></i>
-                        <div>
-                            <h3 contenteditable="true" class="text-xl neon-text-green mb-2 outline-none">Service Array Four</h3>
-                            <p contenteditable="true" class="text-gray-400 text-sm outline-none">Interlinked network service array, for maximum connectivity.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        `,
-
-        contact: `
-            <section class="neon-border-yellow p-6 my-4 bg-black bg-opacity-70 relative group">
-                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
-                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-yellow mb-6 outline-none text-center">ESTABLISH_CONTACT_LINK</h2>
-                <div class="max-w-lg mx-auto">
-                    <div class="mb-4">
-                        <label contenteditable="true" for="cyber_callsign" class="block neon-text-blue text-sm font-bold mb-2 outline-none">Your Callsign (ID):</label>
-                        <input type="text" id="cyber_callsign" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-blue text-gray-300 focus:outline-none focus:border-neon-pink" placeholder="e.g., Ghost_Decoder_77">
-                    </div>
-                    <div class="mb-4">
-                        <label contenteditable="true" for="cyber_message_packet" class="block neon-text-pink text-sm font-bold mb-2 outline-none">Message Packet:</label>
-                        <textarea id="cyber_message_packet" rows="4" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-pink text-gray-300 focus:outline-none focus:border-neon-purple" placeholder="Encode your query here..."></textarea>
-                    </div>
-                    <div class="text-center">
-                        <button class="bg-gradient-to-r from-yellow-500 via-red-500 to-pink-600 hover:from-yellow-400 text-white font-bold py-2 px-6 rounded-lg shadow-md neon-text-black transition-all duration-300 ease-in-out transform hover:scale-105">
-                            <span contenteditable="true" class="outline-none">TRANSMIT_PACKET</span> <i class="fas fa-paper-plane ml-2"></i>
-                        </button>
-                    </div>
-                </div>
-                <style>
-                    .neon-input::placeholder { color: #555; }
-                    .neon-input:focus { box-shadow: 0 0 8px var(--neon-purple); }
-                    .neon-text-yellow { color: #f3ca20; text-shadow: 0 0 5px #f3ca20, 0 0 10px #f3ca20;}
-                    .neon-border-yellow { border: 2px solid #f3ca20; box-shadow: 0 0 10px #f3ca20, inset 0 0 10px #f3ca20;}
-                    .neon-text-green { color: #39ff14; text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;}
-                    .neon-border-green { border: 2px solid #39ff14; box-shadow: 0 0 10px #39ff14, inset 0 0 10px #39ff14;}
-                </style>
-            </section>
-        `
-        // Add other components following the same pattern
-    };
-
-    // Drag and drop implementation
-    document.querySelectorAll('.component-item').forEach(item => {
-        item.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('text/plain', e.target.dataset.component);
-        });
-    });
-
-    const previewArea = document.getElementById('previewArea');
-    
-    previewArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        previewArea.classList.add('neon-border-pink');
-    });
-
-    previewArea.addEventListener('dragleave', () => {
-        previewArea.classList.remove('neon-border-pink');
-    });
-
-    previewArea.addEventListener('drop', (e) => {
-        e.preventDefault();
-        const componentType = e.dataTransfer.getData('text/plain');
-        // OLD LINE: previewArea.insertAdjacentHTML('beforeend', components[componentType]);
-        
-        // NEW LOGIC:
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = components[componentType];
-        const newComponentElement = tempDiv.firstElementChild;
-        
-        if (newComponentElement) {
-            newComponentElement.classList.add('builder-component-appear');
-            previewArea.appendChild(newComponentElement);
-            
-            // Remove the animation class after it finishes to allow re-trigger if element is re-added (though not typical here)
-            setTimeout(() => {
-                newComponentElement.classList.remove('builder-component-appear');
-            }, 500); // Match animation duration
+        function contactWhatsApp(planName) {
+            const phoneNumber = '5491135203319'; // Replace with your actual WhatsApp number
+            const message = `Hello NeonWeb Dev! I'm interested in the ${planName} plan. Can you provide more information?`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
         }
-        // END NEW LOGIC
-        
-        previewArea.classList.remove('neon-border-pink');
-        const placeholder = previewArea.querySelector('.text-center.opacity-70');
-        if (placeholder) {
-            placeholder.style.display = 'none'; // Hide placeholder
-        }
-    });
-
-    // Export functionality
-    document.getElementById('exportBtn').addEventListener('click', () => {
-        const html = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Your Cyberpunk Page</title>
-                <style>
-                    /* Include your existing styles here */
-                </style>
-            </head>
-            <body>
-                ${previewArea.innerHTML}
-            </body>
-            </html>
-        `;
-        const blob = new Blob([html], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'cyberpunk-page.html';
-        a.click();
-    });
-
-    // Reset functionality
-    document.getElementById('resetBtn').addEventListener('click', () => {
-        previewArea.innerHTML = `
-        <div class="text-center mt-10 sm:mt-16 opacity-70">
-            <p class="neon-text-blue text-base sm:text-lg mb-2">This is your canvas.</p>
-            <p class="text-gray-400 text-xs sm:text-sm mb-2">Drag components from the 'COMPONENT VAULT' on the left and drop them here to build your page structure.</p>
-            <p class="text-gray-500 text-xs">(You can then customize the content of each dropped component.)</p>
-        </div>
-        `;
-        // The placeholder is already part of the innerHTML, so it will be restored.
-    });
     </script>
 </body>
 

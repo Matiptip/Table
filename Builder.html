@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeonWeb Page Builder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
+        
+        :root {
+            --neon-pink: #ff2a6d;
+            --neon-blue: #05d9e8;
+            --neon-purple: #d300c5;
+            --dark-bg: #0d0221;
+        }
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            display: flex; /* Added for full height layout */
+            flex-direction: column; /* Added for full height layout */
+            min-height: 100vh; /* Added for full height layout */
+        }
+        
+        .cyber-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .neon-text-pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
+        }
+        
+        .neon-text-blue {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+        }
+        
+        .neon-text-purple {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple);
+        }
+        
+        .neon-border-pink {
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink), inset 0 0 10px var(--neon-pink);
+        }
+        
+        .neon-border-blue {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue), inset 0 0 10px var(--neon-blue);
+        }
+        
+        .neon-border-purple {
+            border: 2px solid var(--neon-purple);
+            box-shadow: 0 0 10px var(--neon-purple), inset 0 0 10px var(--neon-purple);
+        }
+        
+        .glow-hover:hover {
+            transform: scale(1.02);
+            transition: all 0.3s ease; /* Ensure smooth transition for glow-hover */
+        }
+        
+        .scanline {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scanline::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 100%
+            );
+            background-size: 100% 4px;
+            animation: scanline 6s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+        
+        .terminal-cursor::after {
+            content: "|";
+            animation: blink 1s step-end infinite;
+            color: var(--neon-blue);
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        @keyframes text-glitch {
+            5%, 45% {
+                transform: translate(1px, 0) skew(0deg);
+                opacity: 0.9;
+            }
+            10%, 40% {
+                transform: translate(-1px, 0) skew(0deg);
+            }
+            15%, 35% {
+                transform: translate(0, 0) skew(1deg);
+            }
+        }
+        .animate-text-glitch {
+            animation: text-glitch 2.5s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes text-flicker-fast {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
+        }
+        .animate-text-flicker-fast {
+            animation: text-flicker-fast 0.2s linear infinite alternate;
+        }
+
+        @keyframes pulse-glow-strong {
+            0%, 100% { box-shadow: 0 0 10px var(--neon-current-color), inset 0 0 8px var(--neon-current-color); }
+            50% { box-shadow: 0 0 20px var(--neon-current-color), inset 0 0 15px var(--neon-current-color); }
+        }
+        .animate-pulse-glow-strong {
+            --neon-current-color: var(--neon-pink);
+            animation: pulse-glow-strong 2s ease-in-out infinite alternate;
+        }
+        .neon-blue-glow { --neon-current-color: var(--neon-blue); }
+        .neon-pink-glow { --neon-current-color: var(--neon-pink); }
+        .neon-purple-glow { --neon-current-color: var(--neon-purple); }
+        .neon-green-glow { --neon-current-color: #39ff14; }
+        .neon-yellow-glow { --neon-current-color: #f3ca20; }
+
+        .grid-pattern-animated {
+            background-image:
+                linear-gradient(rgba(5, 217, 232, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(5, 217, 232, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: pulse-grid 10s linear infinite alternate;
+        }
+        @keyframes pulse-grid {
+            0% { background-image: linear-gradient(rgba(5, 217, 232, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.05) 1px, transparent 1px); }
+            50% { background-image: linear-gradient(rgba(5, 217, 232, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.15) 1px, transparent 1px); }
+            100% { background-image: linear-gradient(rgba(5, 217, 232, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(5, 217, 232, 0.05) 1px, transparent 1px); }
+        }
+
+        .scanline-intensify:hover::after {
+            animation: scanline-fast 0.5s linear infinite;
+            background-size: 100% 6px;
+        }
+        @keyframes scanline-fast {
+            0% { background-position: 0 0; opacity: 0.5; }
+            100% { background-position: 0 100%; opacity: 0.1; }
+        }
+        
+        @keyframes fadeInSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .builder-component-appear {
+            animation: fadeInSlideUp 0.5s ease-out forwards;
+        }
+
+        /* Specific styles for Builder.html to make #neonBuilder full height */
+        .builder-main-container {
+            flex-grow: 1; /* Allows this container to take up available space */
+            display: flex;
+            flex-direction: column;
+        }
+        #neonBuilder {
+            flex-grow: 1; /* Allows the builder section to fill the main container */
+            display: flex; /* Added to make its children (like .builder-container) also participate in flex layout */
+            flex-direction: column; /* Stack children vertically */
+        }
+        .builder-container {
+             flex-grow: 1; /* Crucial for this to expand */
+        }
+
+    </style>
+</head>
+<body class="grid-pattern-animated scanline"> <!-- Removed container and py-12 for full page experience -->
+    
+    <!-- Navigation Bar -->
+    <nav class="bg-black bg-opacity-80 p-4 shadow-lg neon-border-b-blue sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index" class="cyber-font text-xl neon-text-pink hover:neon-text-blue transition-colors duration-300">
+                NEON<span class="neon-text-blue">WEB</span>_DEV
+            </a>
+            <div>
+                <a href="index#neonBuilder" class="text-sm neon-text-purple hover:text-pink-400 transition-colors duration-300 mr-4">
+                    <i class="fas fa-chevron-left mr-1"></i> Back to Main Page
+                </a>
+                <a href="#" id="loadProjectBtn" class="text-sm neon-text-blue hover:text-pink-400 transition-colors duration-300 mr-4">
+                    <i class="fas fa-folder-open mr-1"></i> Load
+                </a>
+                <a href="#" id="saveProjectBtn" class="text-sm neon-text-green hover:text-pink-400 transition-colors duration-300">
+                    <i class="fas fa-save mr-1"></i> Save
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area for the Builder -->
+    <div class="builder-main-container container mx-auto px-4 py-8"> <!-- Added py-8 for some padding -->
+        <section id="neonBuilder" class="py-0"> <!-- Removed container, mx-auto, px-2/4, py-10/12. Added py-0 -->
+            <div class="text-center mb-6 md:mb-8"> <!-- Reduced bottom margin slightly -->
+                <h2 class="cyber-font text-2xl sm:text-3xl md:text-4xl mb-3 md:mb-4 neon-text-purple">NEON_<span class="neon-text-blue animate-text-flicker-fast">BUILDER</span></h2>
+                <p class="text-sm sm:text-base neon-text-blue terminal-cursor">>_ Your Cyberpage Prototyping Environment</p>
+            </div>
+
+            <div class="builder-container flex flex-col md:flex-row" style="min-height: 0; max-height: none;"> <!-- Removed min/max height inline styles -->
+                <!-- Component Palette -->
+                <div class="component-palette scanline scanline-intensify p-3 sm:p-4 w-full md:w-1/3 lg:w-1/4 overflow-y-auto mb-4 md:mb-0 md:mr-4 max-h-[35vh] md:max-h-[calc(100vh-250px)] rounded-lg border neon-border-purple md:border-none">
+                    <h3 class="neon-text-pink text-lg sm:text-xl mb-3 sm:mb-4 border-b border-neon-blue pb-2 animate-text-glitch">COMPONENT VAULT</h3>
+                    <div class="space-y-2 sm:space-y-3">
+                        <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md glow-hover transition-all duration-300 ease-in-out" draggable="true" data-component="hero">
+                            <div class="flex items-center mb-1"><i class="fas fa-desktop mr-2 neon-text-blue"></i><span class="text-sm sm:text-base">Hero Banner</span></div>
+                            <p class="text-xs text-gray-400 mt-1 px-1">A prominent section for the top of your page.</p>
+                        </div>
+                        <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out glow-hover" draggable="true" data-component="features">
+                            <div class="flex items-center mb-1"><i class="fas fa-cogs mr-2 neon-text-pink"></i><span class="text-sm sm:text-base">Features Grid</span></div>
+                            <p class="text-xs text-gray-400 mt-1 px-1">Showcase key features or services.</p>
+                        </div>
+                        <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out glow-hover" draggable="true" data-component="pricing">
+                            <div class="flex items-center mb-1"><i class="fas fa-tags mr-2 neon-text-purple"></i><span class="text-sm sm:text-base">Pricing Table</span></div>
+                            <p class="text-xs text-gray-400 mt-1 px-1">Display service packages or prices.</p>
+                        </div>
+                        <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out glow-hover" draggable="true" data-component="testimonials">
+                            <div class="flex items-center mb-1"><i class="fas fa-quote-right mr-2 neon-text-blue"></i><span class="text-sm sm:text-base">Testimonials</span></div>
+                            <p class="text-xs text-gray-400 mt-1 px-1">Share client feedback.</p>
+                        </div>
+                        <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out glow-hover" draggable="true" data-component="cta">
+                            <div class="flex items-center mb-1"><i class="fas fa-bolt mr-2 neon-text-pink"></i><span class="text-sm sm:text-base">CTA Section</span></div>
+                            <p class="text-xs text-gray-400 mt-1 px-1">Encourage users to take action.</p>
+                        </div>
+                        <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out glow-hover" draggable="true" data-component="services">
+                            <div class="flex items-center mb-1"><i class="fas fa-hands-helping mr-2 neon-text-blue"></i><span class="text-sm sm:text-base">Service List</span></div>
+                            <p class="text-xs text-gray-400 mt-1 px-1">Detail various services offered.</p>
+                        </div>
+                        <div class="component-item p-2 sm:p-3 border border-transparent hover:border-neon-blue rounded-md transition-all duration-300 ease-in-out glow-hover" draggable="true" data-component="contact">
+                            <div class="flex items-center mb-1"><i class="fas fa-envelope-open-text mr-2 neon-text-purple"></i><span class="text-sm sm:text-base">Contact Form</span></div>
+                            <p class="text-xs text-gray-400 mt-1 px-1">A stylized, non-functional contact form.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Workspace -->
+                <div class="workspace grid-pattern p-3 sm:p-4 flex-1 md:flex-1 overflow-y-auto rounded-lg border neon-border-blue">
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-3 sm:mb-4">
+                        <h3 class="neon-text-blue text-lg sm:text-xl mb-2 sm:mb-0">YOUR PROTOTYPE</h3>
+                        <div class="space-x-2 sm:space-x-3">
+                            <button id="resetBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-red-900 hover:bg-red-700 rounded animate-pulse-glow-strong neon-pink-glow">
+                                <i class="fas fa-trash mr-1"></i> Reset
+                            </button>
+                            <button id="exportBtn" class="px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm bg-gradient-to-r from-blue-600 to-purple-600 rounded animate-pulse-glow-strong neon-purple-glow">
+                                <i class="fas fa-code mr-1"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="previewArea" class="min-h-[40vh] md:min-h-[calc(100%-4rem)] neon-border-blue p-3 sm:p-4 bg-black bg-opacity-50 rounded-md flex-grow"> <!-- Added flex-grow -->
+                        <div class="text-center mt-10 sm:mt-16 opacity-70">
+                            <p class="neon-text-blue text-base sm:text-lg mb-2">This is your canvas.</p>
+                            <p class="text-gray-400 text-xs sm:text-sm mb-2">Drag components from the 'COMPONENT VAULT' and drop them here.</p>
+                            <p class="text-gray-500 text-xs">(You can then customize the content of each dropped component.)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Button hover effects (sound)
+        const buttons = document.querySelectorAll('button, .component-item'); // Added .component-item
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                const audio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3');
+                audio.volume = 0.1; // Reduced volume
+                audio.play().catch(e => console.error("Audio play failed:", e));
+            });
+        });
+        
+        // Component templates (optimized versions of your existing sections)
+    const components = {
+        hero: `
+            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h1 contenteditable="true" class="cyber-font text-3xl neon-text-pink mb-4 outline-none focus:neon-border-pink p-1">YOUR_HERO_HEADLINE</h1>
+                <p contenteditable="true" class="neon-text-blue mb-6 outline-none focus:neon-border-blue p-1">Customizable cyberpunk hero section for your main message or product showcase.</p>
+                <button contenteditable="true" class="bg-gradient-to-r from-pink-600 to-blue-600 px-6 py-2 rounded-md outline-none focus:ring-2 focus:ring-purple-500">ACTION_BUTTON</button>
+            </section>
+        `,
+        pricing: `
+            <section class="my-4 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-pink mb-6 outline-none text-center focus:neon-border-pink p-1">PRICING_PLANS</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="neon-border-blue p-4 bg-black bg-opacity-70">
+                        <h3 contenteditable="true" class="neon-text-blue text-xl mb-2 outline-none focus:neon-border-purple p-1">BASIC_UNIT</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none focus:neon-border-purple p-1">Starting at $XXX</p>
+                        <ul contenteditable="true" class="list-disc list-inside text-gray-300 text-sm space-y-1 outline-none focus:neon-border-purple p-1"><li>Feature A</li><li>Feature B</li></ul>
+                    </div>
+                    <div class="neon-border-pink p-4 bg-black bg-opacity-70">
+                        <h3 contenteditable="true" class="neon-text-pink text-xl mb-2 outline-none focus:neon-border-purple p-1">PRO_MODULE</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none focus:neon-border-purple p-1">Starting at $YYY</p>
+                        <ul contenteditable="true" class="list-disc list-inside text-gray-300 text-sm space-y-1 outline-none focus:neon-border-purple p-1"><li>Feature A+</li><li>Feature B+</li><li>Feature C</li></ul>
+                    </div>
+                    <div class="neon-border-purple p-4 bg-black bg-opacity-70">
+                        <h3 contenteditable="true" class="neon-text-purple text-xl mb-2 outline-none focus:neon-border-pink p-1">ELITE_SYSTEM</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm mb-4 outline-none focus:neon-border-pink p-1">Starting at $ZZZ</p>
+                        <ul contenteditable="true" class="list-disc list-inside text-gray-300 text-sm space-y-1 outline-none focus:neon-border-pink p-1"><li>All Features</li><li>Priority Support</li></ul>
+                    </div>
+                </div>
+            </section>
+        `,
+
+        features: `
+            <section class="neon-border-purple p-6 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-purple mb-4 outline-none text-center focus:neon-border-blue p-1">KEY_FEATURES_GRID</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="neon-border-blue p-4 rounded">
+                        <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none focus:neon-border-pink p-1">Feature One</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-pink p-1">Description of feature one with a cyberpunk feel, highlighting its unique aspects.</p>
+                    </div>
+                    <div class="neon-border-pink p-4 rounded">
+                        <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none focus:neon-border-blue p-1">Feature Two</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-blue p-1">Description of feature two, enhanced for the digital frontier and user engagement.</p>
+                    </div>
+                    <div class="neon-border-purple p-4 rounded">
+                        <h3 contenteditable="true" class="text-xl neon-text-purple mb-2 outline-none focus:neon-border-pink p-1">Feature Three</h3>
+                        <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-pink p-1">Description of feature three, straight from the neon-lit streets of innovation.</p>
+                    </div>
+                </div>
+            </section>
+        `,
+
+        testimonials: `
+            <section class="neon-border-pink p-6 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-pink mb-4 outline-none text-center focus:neon-border-purple p-1">CLIENT_ECHOES</h2>
+                <div class="space-y-4">
+                    <div class="neon-border-blue p-4 rounded bg-opacity-50 bg-black">
+                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none focus:neon-border-pink p-1">"This service is a paradigm shift in cybernetic integration..."</p>
+                        <h4 contenteditable="true" class="neon-text-blue text-right outline-none focus:neon-border-pink p-1">- User_7C3, Nova Corp</h4>
+                    </div>
+                    <div class="neon-border-purple p-4 rounded bg-opacity-50 bg-black">
+                        <p contenteditable="true" class="text-gray-300 italic mb-2 outline-none focus:neon-border-blue p-1">"My digital footprint has never been stronger. Peak performance!"</p>
+                        <h4 contenteditable="true" class="neon-text-purple text-right outline-none focus:neon-border-blue p-1">- Ghost_Rider, Sector Gamma</h4>
+                    </div>
+                </div>
+            </section>
+        `,
+
+        cta: `
+            <section class="neon-border-blue p-8 my-4 bg-black bg-opacity-80 relative group text-center">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-3xl neon-text-blue mb-4 outline-none focus:neon-border-pink p-1">ENGAGE_PROTOCOL</h2>
+                <p contenteditable="true" class="neon-text-pink mb-6 text-lg outline-none focus:neon-border-pink p-1">The future awaits. Connect now to redefine your reality and unlock potential.</p>
+                <button class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:to-pink-500 text-white font-bold py-3 px-6 rounded-lg shadow-lg neon-text-white transition-all duration-300 ease-in-out transform hover:scale-105">
+                    <span contenteditable="true" class="outline-none focus:ring-2 focus:ring-purple-500">INITIATE_CONTACT</span> <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </section>
+        `,
+
+        services: `
+            <section class="neon-border-green p-6 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-green mb-6 outline-none text-center focus:neon-border-blue p-1">OUR_SERVICES_MATRIX</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start p-4 neon-border-blue rounded">
+                        <i class="fas fa-cogs neon-text-blue text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 contenteditable="true" class="text-xl neon-text-blue mb-2 outline-none focus:neon-border-pink p-1">Service Array One</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-pink p-1">Description of the first service array, deployable on demand for various solutions.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 neon-border-pink rounded">
+                        <i class="fas fa-shield-alt neon-text-pink text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 contenteditable="true" class="text-xl neon-text-pink mb-2 outline-none focus:neon-border-blue p-1">Service Array Two</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-blue p-1">Secure and robust second service array, designed for critical operational integrity.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 neon-border-purple rounded">
+                        <i class="fas fa-microchip neon-text-purple text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 contenteditable="true" class="text-xl neon-text-purple mb-2 outline-none focus:neon-border-pink p-1">Service Array Three</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-pink p-1">Advanced micro-processing service array, for cutting-edge technological solutions.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 neon-border-green rounded">
+                        <i class="fas fa-network-wired neon-text-green text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <h3 contenteditable="true" class="text-xl neon-text-green mb-2 outline-none focus:neon-border-blue p-1">Service Array Four</h3>
+                            <p contenteditable="true" class="text-gray-400 text-sm outline-none focus:neon-border-blue p-1">Interlinked network service array, engineered for maximum connectivity and data flow.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `,
+
+        contact: `
+            <section class="neon-border-yellow p-6 my-4 bg-black bg-opacity-70 relative group">
+                <button class="absolute -top-3 -right-3 bg-red-900 text-white rounded-full w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs" onclick="this.parentElement.remove()">✕</button>
+                <h2 contenteditable="true" class="cyber-font text-2xl neon-text-yellow mb-6 outline-none text-center focus:neon-border-pink p-1">ESTABLISH_CONTACT_LINK</h2>
+                <div class="max-w-lg mx-auto">
+                    <div class="mb-4">
+                        <label contenteditable="true" for="cyber_callsign" class="block neon-text-blue text-sm font-bold mb-2 outline-none focus:neon-border-purple p-1">Your Callsign (ID):</label>
+                        <input type="text" id="cyber_callsign" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-blue text-gray-300 focus:outline-none focus:border-neon-pink" placeholder="e.g., Ghost_Decoder_77">
+                    </div>
+                    <div class="mb-4">
+                        <label contenteditable="true" for="cyber_message_packet" class="block neon-text-pink text-sm font-bold mb-2 outline-none focus:neon-border-purple p-1">Message Packet:</label>
+                        <textarea id="cyber_message_packet" rows="4" class="neon-input w-full p-2 rounded bg-gray-900 border border-neon-pink text-gray-300 focus:outline-none focus:border-neon-purple" placeholder="Encode your query here... detail your project needs or inquiry."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="bg-gradient-to-r from-yellow-500 via-red-500 to-pink-600 hover:from-yellow-400 text-white font-bold py-2 px-6 rounded-lg shadow-md neon-text-black transition-all duration-300 ease-in-out transform hover:scale-105">
+                            <span contenteditable="true" class="outline-none focus:ring-2 focus:ring-purple-500">TRANSMIT_PACKET</span> <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                <style>
+                    .neon-input::placeholder { color: #555; }
+                    .neon-input:focus { box-shadow: 0 0 8px var(--neon-purple); }
+                    .neon-text-yellow { color: #f3ca20; text-shadow: 0 0 5px #f3ca20, 0 0 10px #f3ca20;}
+                    .neon-border-yellow { border: 2px solid #f3ca20; box-shadow: 0 0 10px #f3ca20, inset 0 0 10px #f3ca20;}
+                    .neon-text-green { color: #39ff14; text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;}
+                    .neon-border-green { border: 2px solid #39ff14; box-shadow: 0 0 10px #39ff14, inset 0 0 10px #39ff14;}
+                    /* Ensure contenteditable focus outlines are subtle or match theme */
+                    [contenteditable]:focus {
+                        outline: 1px dashed var(--neon-blue);
+                        box-shadow: 0 0 5px var(--neon-blue);
+                    }
+                </style>
+            </section>
+        `
+    };
+
+    const previewArea = document.getElementById('previewArea');
+    const componentItems = document.querySelectorAll('.component-item');
+    const initialPlaceholder = previewArea.innerHTML; // Store initial placeholder
+
+    componentItems.forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.dataset.component);
+            // Optional: Add a class to the dragged item for visual feedback
+            e.target.classList.add('opacity-50', 'border-dashed');
+        });
+        item.addEventListener('dragend', (e) => {
+            // Optional: Remove the visual feedback class
+            e.target.classList.remove('opacity-50', 'border-dashed');
+        });
+    });
+    
+    previewArea.addEventListener('dragover', (e) => {
+        e.preventDefault(); // Necessary to allow dropping
+        previewArea.classList.add('neon-border-pink', 'bg-opacity-60'); // Visual feedback
+        previewArea.classList.remove('neon-border-blue');
+    });
+
+    previewArea.addEventListener('dragleave', () => {
+        previewArea.classList.remove('neon-border-pink', 'bg-opacity-60');
+        previewArea.classList.add('neon-border-blue');
+    });
+
+    previewArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const componentType = e.dataTransfer.getData('text/plain');
+        
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = components[componentType];
+        const newComponentElement = tempDiv.firstElementChild;
+        
+        if (newComponentElement) {
+            newComponentElement.classList.add('builder-component-appear');
+            
+            // If it's the first element, clear placeholder
+            if (previewArea.innerHTML.trim() === initialPlaceholder.trim()) {
+                previewArea.innerHTML = '';
+            }
+            previewArea.appendChild(newComponentElement);
+            
+            setTimeout(() => {
+                newComponentElement.classList.remove('builder-component-appear');
+            }, 500);
+        }
+        
+        previewArea.classList.remove('neon-border-pink', 'bg-opacity-60');
+        previewArea.classList.add('neon-border-blue');
+
+        const placeholderDiv = previewArea.querySelector('.text-center.opacity-70');
+        if(placeholderDiv && previewArea.children.length > 1) { // if placeholder exists and there's more than just it
+            placeholderDiv.style.display = 'none';
+        }
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+        // Temporarily remove contenteditable attributes and focus outlines for export
+        const clonedPreview = previewArea.cloneNode(true);
+        clonedPreview.querySelectorAll('[contenteditable="true"]').forEach(el => {
+            el.removeAttribute('contenteditable');
+            el.classList.remove('focus:neon-border-pink', 'focus:neon-border-blue', 'focus:neon-border-purple', 'p-1'); // Remove focus helper classes
+            // Remove any specific focus outline styles if added directly
+            el.style.outline = '';
+            el.style.boxShadow = '';
+        });
+        // Remove delete buttons
+        clonedPreview.querySelectorAll('.group > button').forEach(btn => btn.remove());
+
+
+        const cssStyles = document.querySelector('style').innerHTML;
+        const finalHtml = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Your Cyberpunk Page</title>
+                <script src="https://cdn.tailwindcss.com"></script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                <style>
+                    ${cssStyles}
+                    /* Hide contenteditable focus outlines in exported file */
+                    [contenteditable]:focus { outline: none; box-shadow: none; }
+                </style>
+            </head>
+            <body class="grid-pattern-animated scanline bg-dark-bg text-white">
+                <div class="container mx-auto px-4 py-8">
+                    ${clonedPreview.innerHTML}
+                </div>
+            </body>
+            </html>
+        `;
+        const blob = new Blob([finalHtml.trim()], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'cyberpunk-page.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+        previewArea.innerHTML = initialPlaceholder; // Restore initial placeholder
+    });
+
+    // Save and Load Project (Basic LocalStorage Implementation)
+    const saveProjectBtn = document.getElementById('saveProjectBtn');
+    const loadProjectBtn = document.getElementById('loadProjectBtn');
+
+    saveProjectBtn.addEventListener('click', () => {
+        const projectData = previewArea.innerHTML;
+        localStorage.setItem('neonBuilderProject', projectData);
+        alert('Project saved to browser local storage!');
+    });
+
+    loadProjectBtn.addEventListener('click', () => {
+        const savedProjectData = localStorage.getItem('neonBuilderProject');
+        if (savedProjectData) {
+            previewArea.innerHTML = savedProjectData;
+            const placeholderDiv = previewArea.querySelector('.text-center.opacity-70');
+             if(placeholderDiv && previewArea.children.length > 1) {
+                placeholderDiv.style.display = 'none';
+            }
+        } else {
+            alert('No saved project found.');
+        }
+    });
+
+    </script>
+</body>
+</html>
