@@ -143,6 +143,11 @@
         .neon-green-glow { --neon-current-color: #39ff14; }
         .neon-yellow-glow { --neon-current-color: #f3ca20; }
 
+        .neon-text-green { color: #39ff14; text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;}
+        .neon-border-green { border: 2px solid #39ff14; box-shadow: 0 0 10px #39ff14, inset 0 0 10px #39ff14;}
+        .neon-text-yellow { color: #f3ca20; text-shadow: 0 0 5px #f3ca20, 0 0 10px #f3ca20;}
+        .neon-border-yellow { border: 2px solid #f3ca20; box-shadow: 0 0 10px #f3ca20, inset 0 0 10px #f3ca20;}
+
         .grid-pattern-animated {
             background-image:
                 linear-gradient(rgba(5, 217, 232, 0.1) 1px, transparent 1px),
@@ -439,12 +444,10 @@
                     </div>
                 </div>
                 <style>
+                    /* Styles moved to main style block for better organization */
                     .neon-input::placeholder { color: #555; }
                     .neon-input:focus { box-shadow: 0 0 8px var(--neon-purple); }
-                    .neon-text-yellow { color: #f3ca20; text-shadow: 0 0 5px #f3ca20, 0 0 10px #f3ca20;}
-                    .neon-border-yellow { border: 2px solid #f3ca20; box-shadow: 0 0 10px #f3ca20, inset 0 0 10px #f3ca20;}
-                    .neon-text-green { color: #39ff14; text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14;}
-                    .neon-border-green { border: 2px solid #39ff14; box-shadow: 0 0 10px #39ff14, inset 0 0 10px #39ff14;}
+                    /* .neon-text-yellow, .neon-border-yellow, .neon-text-green, .neon-border-green are now global */
                     /* Ensure contenteditable focus outlines are subtle or match theme */
                     [contenteditable]:focus {
                         outline: 1px dashed var(--neon-blue);
